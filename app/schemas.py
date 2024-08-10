@@ -1,10 +1,6 @@
 from datetime import UTC, datetime
 from pydantic import UUID4, BaseModel, EmailStr
 
-class UserLogin(BaseModel):
-    email: EmailStr
-    password: str
-
 class UserSignup(BaseModel):
     firstname: str
     lastname: str
@@ -18,7 +14,7 @@ class UserSchema(BaseModel):
     lastname: str
     username: str
     email: EmailStr
-    hashed_pwd: str
+    password: str
     date_created: datetime
 
     class Config:

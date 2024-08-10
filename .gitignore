@@ -2,6 +2,7 @@
 *init*
 .venv/
 test.py
+.keys/
 
 # Logs
 logs

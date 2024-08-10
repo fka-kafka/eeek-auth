@@ -5,7 +5,7 @@ from app.database import Base
 class User(Base):
     __tablename__ = 'users'
 
-    user_id = Column(Uuid, primary_key=True, nullable=False,  server_default=text('uuid_generate_v4()'))
+    id = Column('user_id', Uuid, primary_key=True, nullable=False,  server_default=text('uuid_generate_v4()'))
     firstname = Column(String, nullable=False)
     lastname = Column(String, nullable=False)
     username = Column(String, nullable=False, unique=True)

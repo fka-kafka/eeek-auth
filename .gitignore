@@ -3,6 +3,7 @@
 .venv/
 test.py
 .keys/
+.env
 
 # Logs
 logs

@@ -1,4 +1,4 @@
-from datetime import UTC, datetime
+from datetime import datetime
 from pydantic import UUID4, BaseModel, EmailStr
 
 class UserSignup(BaseModel):

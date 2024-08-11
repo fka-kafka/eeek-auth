@@ -1,5 +1,5 @@
-from pydantic import EmailStr
-from sqlalchemy import TIMESTAMP, Column, String, Uuid, text, true
+from sqlalchemy import TIMESTAMP, Column, String, Uuid, text
+
 from app.database import Base
 
 class User(Base):

@@ -1,0 +1,17 @@
+.email {
+  border-color: black;
+  border-width: 1px;
+  border-style: solid;
+}
+
+.email:valid {
+  border-color: green;
+  border-width: 3px;
+  border-style: solid;
+}
+
+svg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

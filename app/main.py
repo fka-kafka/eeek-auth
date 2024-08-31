@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from app import models
 from app.database import engine
 from app.routers import auth_login, auth_signup
-from app.utils.initializer_utils import initializer
+from app.utils.userInit_utils import initializer
 from fastapi.middleware.cors import CORSMiddleware
 
 models.Base.metadata.create_all(bind=engine)

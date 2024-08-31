@@ -14,7 +14,7 @@ router = APIRouter(
 
 
 @router.post('/', status_code=status.HTTP_200_OK)
-def user_login(user_credentials: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+def login(user_credentials: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     try:
         verified_user = verify_user(user_credentials, db)
         to_authorize = schemas.UserSchema.model_validate(verified_user)

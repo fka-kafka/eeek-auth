@@ -11,6 +11,10 @@ class Settings(BaseSettings):
     algorithm: str
     priv_key_path: str
     pub_key_path: str
+    access_token_expiry_minutes: str
+    redis_password: str
+    redis_host: str
+    redis_port: str
 
     model_config = SettingsConfigDict(env_file='.env')
 

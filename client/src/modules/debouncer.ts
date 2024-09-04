@@ -4,7 +4,7 @@ const usernameDebouncer = (callback: Function, delay: number) => {
   let debounceTimer: NodeJS.Timeout;
 
   return function (...args: [string]) {
-    return new Promise<boolean>((resolve) => {
+    return new Promise<any>((resolve) => {
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(async () => {
         const found = await callback(...args);

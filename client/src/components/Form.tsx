@@ -60,6 +60,9 @@ const Form = ({ setLoading, setSignedUp, setError, setErrorMsg }: any) => {
           setLoading(false);
           if (response === 201) {
             setSignedUp(true);
+            setTimeout(() => {
+              window.location.reload()
+            }, 3000);
           } else {
             setError(true);
             setErrorMsg(

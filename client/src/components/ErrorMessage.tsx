@@ -4,7 +4,7 @@ const Error = ({ errorMsg }: any) => {
   return (
     <>
       <p>
-        <p>{errorMsg}</p>
+        {errorMsg}
       </p>
     </>
   );

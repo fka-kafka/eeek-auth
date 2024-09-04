@@ -32,6 +32,7 @@ cache = redis.Redis(host=settings.redis_host, port=settings.redis_port,
 def init(db: Session = Depends(get_db)):
     names = list()
     usernames = db.query(models.User.username).all()
+    print(usernames)
     for (name,) in usernames:
         names.append(name)
 

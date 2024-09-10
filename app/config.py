@@ -15,6 +15,11 @@ class Settings(BaseSettings):
     redis_password: str
     redis_host: str
     redis_port: str
+    smtp_username: str
+    smtp_password: str
+    smtp_server: str
+    smtp_port: str
+    frontend_url: str
 
     model_config = SettingsConfigDict(env_file='.env')
 

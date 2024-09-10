@@ -1,32 +1,17 @@
-import bcrypt
 from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from sqlalchemy.orm import Session
+from typing import Annotated
+import jwt
+
 
 from app import models
 from app.database import get_db
+from app.utils.hash_utils import verify_passwd
+from app.utils.jwt_utils import verify_jwt
 
 
-def hash_passwd(passwd: str):
-    try:
-        hashed_passwd_bytes = bcrypt.hashpw(
-            passwd.encode('utf-8'), bcrypt.gensalt(13))
-        hashed_passwd = hashed_passwd_bytes.decode('utf-8')
-        return hashed_passwd
-    except TypeError as error:
-        print(error)
-        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail="Please contact support. Details: Server Error.")
-
-
-def verify_passwd(passwd: str, hashed_passwd: bytes):
-    try:
-        verified_passwd = bcrypt.checkpw(passwd.encode('utf-8'), hashed_passwd)
-        return verified_passwd
-    except TypeError as error:
-        print(error)
-        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail="Please contact support. Details: Server Error.")
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl='login')
 
 
 def verify_user(user_credentials: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
@@ -56,3 +41,24 @@ def verify_user(user_credentials: OAuth2PasswordRequestForm = Depends(), db: Ses
                             detail="Please contact support. Details: Server Error.")
 
 
+def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], db: Session = Depends(get_db)):
+    credentials_exception = HTTPException(
+        status.HTTP_401_UNAUTHORIZED,
+        detail="Invalid Credentials.",
+        headers={'WWW-Authenticate': "Bearer"}
+    )
+
+    try:
+        payload = verify_jwt(token)
+        user_id = payload.get('sub')
+
+        if user_id is None:
+            raise credentials_exception
+    except jwt.InvalidTokenError:
+        raise credentials_exception
+
+    user = db.query(models.User).get(user_id)  # filter(models.User.id == user_id).first() 
+    if user is None:
+        raise credentials_exception
+    
+    return user

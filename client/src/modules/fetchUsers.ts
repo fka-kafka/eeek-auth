@@ -9,7 +9,7 @@ const instance = axios.create({
 
 export async function initUsers(): Promise<any> {
   try {
-    const response = await instance.get("/");
+    const response = await instance.get("/init/");
     console.log(response.data);
     return response;
   } catch (error) {
@@ -20,7 +20,7 @@ export async function initUsers(): Promise<any> {
 export async function getUsers(name: string): Promise<any> {
   console.log(name);
   try {
-    const response = await instance.post("/get_names/", { username: name });
+    const response = await instance.post("/check_username/", { username: name });
     console.dir(response.data.found);
     return response.data.found;
   } catch (error) {

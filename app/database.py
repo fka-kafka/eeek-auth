@@ -1,3 +1,4 @@
+import redis
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -22,3 +23,11 @@ def get_db():
         yield db
     finally:
         db.close()
+        
+def get_redis():
+    return redis.Redis(
+        host=settings.redis_host,
+        port=settings.redis_port,
+        password=settings.redis_password,
+        decode_responses=True
+    )

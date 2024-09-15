@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 
 from app import models, schemas
 from app.database import get_db
-from app.utils.auth_utils import hash_passwd
+from app.utils.hash_utils import hash_passwd
 
 router = APIRouter(
     prefix='/signup',
@@ -30,6 +30,9 @@ def signup(user: schemas.UserSignup, db: Session = Depends(get_db)):
         if 'username' in error.args[0]:
             raise HTTPException(status.HTTP_409_CONFLICT, detail=f"A user with the username '{
                                 user.username}' already exists. Please choose a different username.")
+        elif 'email' in error.args[0]:
+            raise HTTPException(status.HTTP_409_CONFLICT, detail=f"The email '{
+                                user.email}' is already registered.")
         else:
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
                                 detail="Please contact support. Details: IntegrityError")

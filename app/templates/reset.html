@@ -9,7 +9,11 @@
     <h1 style="background-color: blue; color: white;">
         eeek!
     </h1>
-    <p> Your OTP is {{ data }} </p>
+    <p> The reset link:</p>
+    <br>
+    <p>http://127.0.0.1:8000/forgot-password/reset/{{ pin }}/?token={{ data }}</p>
+    <br>
+    <p>will expire in 15 minutes.</p>
 </body>
 
 </html>

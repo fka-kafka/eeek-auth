@@ -33,4 +33,4 @@ class Token(BaseModel):
     token_type: str
 
 class PayloadSchema(BaseModel):
-    username: str
+    content: str | int

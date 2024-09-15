@@ -9,6 +9,6 @@ class User(Base):
     firstname = Column(String, nullable=False)
     lastname = Column(String, nullable=False)
     username = Column(String, nullable=False, unique=True)
-    email = Column('user_email',String, nullable=False)
+    email = Column('user_email',String, nullable=False, unique=True)
     password = Column('hashed_pwd',String, nullable=False)
     date_created = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))

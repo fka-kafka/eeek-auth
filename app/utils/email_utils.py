@@ -1,8 +1,8 @@
-from typing import Dict
+from typing import Dict, Optional
 from jinja2 import Environment, PackageLoader, TemplateNotFound, select_autoescape
 from app.utils.otp_utils import generate_otp
 
-def generate_email_content(template_name: str = 'otp.html') -> str:
+def generate_email_content(data: str, template: str, pin: Optional[str]) -> str:
     """
     Generate email content using a Jinja2 template and OTP.
 
@@ -16,19 +16,18 @@ def generate_email_content(template_name: str = 'otp.html') -> str:
         RuntimeError: If template is not found or rendering fails.
     """
     try:
-        otp = generate_otp()
-        
+
         env = Environment(
             loader=PackageLoader('app', 'templates'),
             autoescape=select_autoescape(['html', 'xml'])
         )
         
-        template = env.get_template(template_name)
-        context: Dict[str, str] = {'OTP': otp}
+        template = env.get_template(template)
+        context: Dict[str, str] = {'data': data, 'pin': pin}
         
         return template.render(context)
     
     except TemplateNotFound as e:
-        raise RuntimeError(f"Template '{template_name}' not found") from e
+        raise RuntimeError(f"Template '{template}' not found") from e
     except Exception as e:
         raise RuntimeError(f"Failed to generate email content: {str(e)}") from e

@@ -7,7 +7,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app import models, schemas
 from app.config import get_settings
-from app.database import get_db, get_redis
+from app.redis import get_redis
+from app.utils.connection_utils import get_connections
 
 app0 = FastAPI()
 
@@ -20,16 +21,6 @@ app0.add_middleware(
     allow_methods=["POST"],
     allow_headers=["*"],
 )
-
-
-def get_connections():
-    db = next(get_db())
-    redis_connection = get_redis()
-    try:
-        yield db, redis_connection
-    finally:
-        db.close()
-        redis_connection.close()
 
 
 @app0.get('/init/', status_code=status.HTTP_200_OK)
@@ -54,7 +45,7 @@ async def check_username(payload: schemas.PayloadSchema, redis_conn: redis.Redis
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND, detail="Usernames not initialized")
         decoded_names = json.loads(names)
-        return {'found': payload.username in decoded_names}
+        return {'found': payload.conten in decoded_names}
     except redis.RedisError as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Redis error: {str(e)}")

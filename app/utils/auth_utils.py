@@ -1,20 +1,19 @@
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from sqlalchemy.orm import Session
-from typing import Annotated
+from typing import Annotated, Any, Callable
 import jwt
 
 
 from app import models
 from app.database import get_db
-from app.utils.hash_utils import verify_passwd
-from app.utils.jwt_utils import verify_jwt
+from app.utils.hash_utils import validate_passwd
 
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='login')
 
 
-def verify_user(user_credentials: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+def validate_current_user(user_credentials: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     try:
         if '@' in user_credentials.username:
             valid_user = db.query(models.User).filter(
@@ -27,7 +26,7 @@ def verify_user(user_credentials: OAuth2PasswordRequestForm = Depends(), db: Ses
             raise HTTPException(status.HTTP_400_BAD_REQUEST,
                                 detail="Incorrect username or password.")
 
-        valid_passwd = verify_passwd(
+        valid_passwd = validate_passwd(
             user_credentials.password, valid_user.password.encode('utf8'))
 
         if not valid_passwd:
@@ -41,7 +40,7 @@ def verify_user(user_credentials: OAuth2PasswordRequestForm = Depends(), db: Ses
                             detail="Please contact support. Details: Server Error.")
 
 
-def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], db: Session = Depends(get_db)):
+def get_current_user(token: Annotated[str, Depends(oauth2_scheme)] | str, validator: Callable[[str], Any], db: Session = Depends(get_db)):
     credentials_exception = HTTPException(
         status.HTTP_401_UNAUTHORIZED,
         detail="Invalid Credentials.",
@@ -49,7 +48,7 @@ def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], db: Session 
     )
 
     try:
-        payload = verify_jwt(token)
+        payload = validator(token)
         user_id = payload.get('sub')
 
         if user_id is None:
@@ -57,8 +56,9 @@ def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], db: Session 
     except jwt.InvalidTokenError:
         raise credentials_exception
 
-    user = db.query(models.User).get(user_id)  # filter(models.User.id == user_id).first() 
+    # filter(models.User.id == user_id).first()
+    user = db.query(models.User).get(user_id)
     if user is None:
         raise credentials_exception
-    
+
     return user

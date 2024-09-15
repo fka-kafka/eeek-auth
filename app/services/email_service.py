@@ -9,7 +9,7 @@ from app.config import get_settings
 settings = get_settings()
 
 
-def send_otp_email(to_email: str, to_name: Optional[str] = None) -> None:
+def send_coded_email(code: str, template: str, to_email: str, pin: Optional[str] = '', to_name: Optional[str] = None) -> None:
     """
     Send an OTP email to the specified recipient.
 
@@ -21,7 +21,7 @@ def send_otp_email(to_email: str, to_name: Optional[str] = None) -> None:
         RuntimeError: If there's an error in sending the email.
     """
     try:
-        content = generate_email_content()
+        content = generate_email_content(code, template, pin)
 
         otp_email = EmailMessage()
         otp_email['Subject'] = "Your eeek! password reset verification code"

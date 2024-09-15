@@ -8,10 +8,13 @@ class Settings(BaseSettings):
     db_password: str
     db_host: str
     db_port: str
-    algorithm: str
+    reset_algorithm: str
+    auth_algorithm: str
     priv_key_path: str
     pub_key_path: str
+    secret_key: str
     access_token_expiry_minutes: str
+    reset_token_expiry_minutes: str
     redis_password: str
     redis_host: str
     redis_port: str

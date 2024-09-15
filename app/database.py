@@ -24,10 +24,4 @@ def get_db():
     finally:
         db.close()
         
-def get_redis():
-    return redis.Redis(
-        host=settings.redis_host,
-        port=settings.redis_port,
-        password=settings.redis_password,
-        decode_responses=True
-    )
+

@@ -4,8 +4,8 @@ from sqlalchemy.orm import Session
 
 from app import schemas
 from app.database import get_db
-from app.utils.auth_utils import verify_user
-from app.utils.jwt_utils import generate_jwt
+from app.utils.auth_utils import validate_current_user
+from app.utils.jwt_utils import generate_session_token
 
 router = APIRouter(
     prefix='/login',
@@ -16,9 +16,9 @@ router = APIRouter(
 @router.post('/', status_code=status.HTTP_200_OK)
 def login(user_credentials: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     try:
-        verified_user = verify_user(user_credentials, db)
+        verified_user = validate_current_user(user_credentials, db)
         to_authorize = schemas.UserSchema.model_validate(verified_user)
-        token = generate_jwt(to_authorize)
+        token = generate_session_token(to_authorize)
 
         return {
             "access_token": token,

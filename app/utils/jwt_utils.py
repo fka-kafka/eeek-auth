@@ -12,8 +12,8 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl='login')
 settings = get_settings()
 
 
-def generate_jwt(to_authorize: schemas.UserSchema):
-    if not to_authorize:
+def generate_session_token(user: schemas.UserSchema):
+    if not user:
         raise HTTPException(status.HTTP_400_BAD_REQUEST,
                             detail="Please contact support.")
 
@@ -24,14 +24,15 @@ def generate_jwt(to_authorize: schemas.UserSchema):
         expiry = datetime.now(
             UTC) + timedelta(minutes=int(settings.access_token_expiry_minutes))
 
-        payload = {
-            'sub': str(to_authorize.id),
-            'name': to_authorize.username,
+        claims = {
+            'sub': str(user.id),
+            'name': user.username,
             'exp': expiry,
-            'created': str(to_authorize.date_created)
+            'created': str(user.date_created)
         }
 
-        token = jwt.encode(payload, private_key, algorithm=settings.algorithm)
+        token = jwt.encode(claims, private_key,
+                           algorithm=settings.auth_algorithm)
 
         return token
     except FileNotFoundError as error:
@@ -44,7 +45,7 @@ def generate_jwt(to_authorize: schemas.UserSchema):
                             detail="Please contact support.")
 
 
-def verify_jwt(token: str):
+def validate_session_token(token: str):
     if not token:
         raise HTTPException(status.HTTP_400_BAD_REQUEST,
                             detail="Please contact support.")
@@ -54,7 +55,7 @@ def verify_jwt(token: str):
             public_key = key_file.read()
 
         decoded = jwt.decode(token, public_key, algorithms=[
-                             settings.algorithm])
+                             settings.auth_algorithm])
         print(decoded)
         return decoded
     except FileNotFoundError as error:
@@ -64,6 +65,6 @@ def verify_jwt(token: str):
     except Exception as error:
         print(error)
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail="Please contact support.")   
+                            detail="Please contact support.")
 
 

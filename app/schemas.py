@@ -24,6 +24,7 @@ class UserCreated(BaseModel):
     id: UUID4
     username: str
     date_created: datetime
+    sso_user: bool
 
     class Config:
         from_attributes = True

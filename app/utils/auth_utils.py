@@ -13,7 +13,7 @@ from app.utils.hash_utils import validate_passwd
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='login')
 
 
-def validate_current_user(user_credentials: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+def validate_user(user_credentials: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     try:
         if '@' in user_credentials.username:
             valid_user = db.query(models.User).filter(
@@ -38,6 +38,22 @@ def validate_current_user(user_credentials: OAuth2PasswordRequestForm = Depends(
         print(error)
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail="Please contact support. Details: Server Error.")
+
+
+def validate_sso_user(user_credentials: dict[str, Any], db: Session = Depends(get_db)):
+
+    try:
+        valid_user = db.query(models.User).filter(
+            models.User.email == user_credentials["email"]).first()
+
+        if valid_user == None:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST,
+                                detail="Incorrect username or password. Do you have an account? If not, create one here!")
+        return valid_user
+    except Exception as error:
+        print(error)
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
+                            detail="Please contact support. Details: Server Error")
 
 
 def get_current_user(token: Annotated[str, Depends(oauth2_scheme)] | str, validator: Callable[[str], Any], db: Session = Depends(get_db)):

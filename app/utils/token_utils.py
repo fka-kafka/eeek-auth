@@ -1,6 +1,8 @@
+import string
+import secrets
 from secrets import token_urlsafe
 from datetime import UTC, datetime, timedelta, timezone
-from app.utils.hash_utils import generate_token_hash, validate_token_hash
+from app.utils.hash_utils import generate_token_hash, hash_passwd, validate_token_hash
 from app.config import get_settings
 
 settings = get_settings()
@@ -37,3 +39,16 @@ def validate_reset_token(token: str, token_data: dict[str, str]):
         return False
 
     return True
+
+
+def generate_sso_secret():
+    alphabet = string.ascii_letters + string.digits + string.punctuation
+    while True:
+        password = ''.join(secrets.choice(alphabet) for i in range(12))
+        if (any(c.islower() for c in password)
+                and any(c.isupper() for c in password)
+                and sum(c.isdigit() for c in password) >= 1):
+            break
+    
+    sso_secret = hash_passwd(password)
+    return sso_secret

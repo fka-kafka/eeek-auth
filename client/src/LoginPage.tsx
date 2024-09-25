@@ -1,13 +1,13 @@
 import { useState } from "react";
-import SignupForm from "./components/SignupForm";
 import Welcome from "./components/Welcome";
 import ButtonAndError from "./components/ButtonAndError";
 import GoogleSignIn from "./components/GoogleSignIn";
 import LinkedInSignIn from "./components/LinkedInSignIn";
+import LoginForm from "./components/LoginForm";
 
-function SignupPage() {
+function LoginPage() {
   const [loading, setLoading] = useState(false);
-  const [signedUp, setSignedUp] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -15,11 +15,11 @@ function SignupPage() {
     <>
       <main>
         <div>
-          {!signedUp ? (
+          {!loggedIn ? (
             <>
-              <SignupForm
+              <LoginForm
                 setLoading={setLoading}
-                setSignedUp={setSignedUp}
+                setLoggedIn={setLoggedIn}
                 setError={setError}
                 setErrorMsg={setErrorMsg}
               />
@@ -28,8 +28,8 @@ function SignupPage() {
                 errorMsg={errorMsg}
                 error={error}
               />
-              <GoogleSignIn setSignedUp={setSignedUp}/>
-              <LinkedInSignIn setSignedUp={setSignedUp} />
+              <GoogleSignIn setLoggedIn={setLoggedIn}/>
+              <LinkedInSignIn setLoggedIn={setLoggedIn} />
             </>
           ) : (
             <Welcome />
@@ -40,4 +40,4 @@ function SignupPage() {
   );
 }
 
-export default SignupPage;
+export default LoginPage;

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import "../form.css";
 import users from "../../MOCK_DATA.json" assert { type: "json" };
-import { submitNewUser } from "../modules/submitNewUser";
+import { userSignUp } from "../modules/submitNewUser";
 import { NewUserType } from "../modules/submitNewUser";
 import { initUsers } from "../modules/fetchUsers";
 import { debounce } from "../modules/debouncer";
 
-const Form = ({ setLoading, setSignedUp, setError, setErrorMsg }: any) => {
+const SignupForm = ({ setLoading, setSignedUp, setError, setErrorMsg }: any) => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [username, setUsername] = useState("");
@@ -56,7 +56,7 @@ const Form = ({ setLoading, setSignedUp, setError, setErrorMsg }: any) => {
         onSubmit={async (e) => {
           e.preventDefault();
           setLoading(true);
-          const response = await submitNewUser(newUser);
+          const response = await userSignUp(newUser);
           setLoading(false);
           if (response === 201) {
             setSignedUp(true);
@@ -223,4 +223,7 @@ const Form = ({ setLoading, setSignedUp, setError, setErrorMsg }: any) => {
   );
 };
 
-export default Form;
+export default SignupForm;
+
+
+//http://localhost:5173/?code=AQTHrJqedZmPOeR59na6d0LSQ4YgZEJapywmwy_4_eomG973HkTa79k50fFEt-eKb5kTWSkxFA5a3pWgJNCCX099gryoBBJxuiUErY31f8jf46JFy642SND-SlVlOwAM2bwkW2blG9X3oVCUPD75HZlLantgRuufHH0XyjGxwg6v2kWV1h2mjRH5gEUKnhLBDMdIi4mKJ6h3Nk_F_pA

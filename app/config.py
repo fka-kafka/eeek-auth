@@ -23,6 +23,10 @@ class Settings(BaseSettings):
     smtp_server: str
     smtp_port: str
     frontend_url: str
+    google_cid: str
+    linkedin_cid: str
+    linkedin_secret: str
+    linkedin_redirect_uri: str
 
     model_config = SettingsConfigDict(env_file='.env')
 

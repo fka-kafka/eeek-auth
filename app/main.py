@@ -15,15 +15,11 @@ app = FastAPI(
     title='EEEK-Auth'
 )
 
-origins = [
-    'http://localhost:5173'
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.frontend_url,
+    allow_origins=['*'],
     allow_credentials=False,
-    allow_methods=["POST"],
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 

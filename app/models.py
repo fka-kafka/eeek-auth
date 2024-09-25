@@ -1,4 +1,4 @@
-from sqlalchemy import TIMESTAMP, Column, String, Uuid, text
+from sqlalchemy import TIMESTAMP, Boolean, Column, String, Uuid, text
 
 from app.database import Base
 
@@ -11,4 +11,5 @@ class User(Base):
     username = Column(String, nullable=False, unique=True)
     email = Column('user_email',String, nullable=False, unique=True)
     password = Column('hashed_pwd',String, nullable=False)
+    sso_user = Column(Boolean, nullable=False, server_default=text('false'))
     date_created = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))

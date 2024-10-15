@@ -55,7 +55,7 @@ const GoogleSignIn = ({ setSignedUp }: any) => {
 
   return (
     <div style={{ maxWidth: "140px" }}>
-      <div ref={buttonRef}></div>
+      <div className="gsi" ref={buttonRef}></div>
     </div>
   );
 };

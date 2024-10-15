@@ -1,0 +1,115 @@
+.loginPage {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 6fr 5fr;
+  font-family: var(--FF-P);
+}
+
+.loginPage_image {
+  grid-column: 1/2;
+  background-image: url("/src/assets/WEEE2.jpeg");
+  background-position: center;
+  background-size: cover;
+}
+
+.loginPage_image:hover {
+  filter: blur(2px);
+  transition: filter 0.7s ease-in-out;
+}
+
+.loginPage_content {
+  height: 100%;
+  grid-column: 2/3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.loginPage_main {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  text-align: center;
+}
+
+h2 {
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
+}
+
+#loginUserForm {
+  margin-top: 1.67vh;
+}
+
+#loginUserForm label {
+  font-size: 12px;
+  font-weight: 600;
+  padding-left: 4px;
+}
+
+#loginUserForm input {
+  padding: 0 5px;
+  border: 0.1px solid hsla(0, 0%, 0%, 0.4);
+  border-radius: 4px;
+  min-height: 4vh;
+  min-width: 20vw;
+  box-shadow: 0 1px 1px 0 var(--COLOR-TEXT-SHADOW);
+}
+
+.password_div {
+  margin-top: 1.67vh;
+}
+
+.forgotPassword {
+  margin-top: 5px;
+  text-align: end;
+}
+
+.forgotPassword a {
+  font-weight: 600;
+  font-size: 12px;
+  text-decoration: underline;
+  color: #000000;
+  margin-right: 16px;
+}
+
+.notSignedUp {
+  font-family: var(--FF-P);
+  font-weight: 500;
+  font-size: 12px;
+  text-align: center;
+}
+
+button:hover {
+  scale: 0.975;
+  background-color: hsla(212, 100%, 27%, 0.95);
+  transition: scale 0.25s normal;
+}
+
+.signup_redirect {
+  text-decoration: underline;
+  color: var(--FF-P);
+  font-weight: 600;
+}
+
+.loginPage_footer {
+  width: 100%;
+  color: hsl(0, 0%, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--FF-P);
+}

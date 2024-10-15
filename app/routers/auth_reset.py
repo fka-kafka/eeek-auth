@@ -23,19 +23,20 @@ def send_otp(payload: schemas.PayloadSchema, db: Session = Depends(get_db)):
     found_user = db.query(models.User).filter_by(
         email=payload.content).first()
 
-    if not found_user:
+    if found_user == None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
                             detail=f"The email account provided is not associated with any user account.")
 
     try:
         otp = generate_otp()
 
+        print(found_user.id, otp)
         store_reset_token(otp, str(found_user.id))
 
         send_coded_email(otp, 'otp.html', found_user.email, f"{found_user.firstname} {
             found_user.lastname}")
 
-        return {'status': f"An OTP has been sent to the mailbox of {payload.content} registered to the user  {found_user.username[0]}{"*" * len(found_user.username[1:-1])}{found_user.username[-1]}. It expires in 15 minutes."}
+        return {'otp_sent': True}
     except Exception as e:
         raise RuntimeError(
             f"Unexpected error in sending OTP email: {str(e)}") from e
@@ -43,9 +44,9 @@ def send_otp(payload: schemas.PayloadSchema, db: Session = Depends(get_db)):
 
 @router.post('/verify-reset', status_code=status.HTTP_200_OK)
 def verify_reset(payload: schemas.PayloadSchema, connections: tuple = Depends(get_connections)):
-    if isinstance(payload.content, int) is False:
-        raise HTTPException(status.HTTP_406_NOT_ACCEPTABLE,
-                            detail=f"Invalid payload data")
+    # if isinstance(payload.content, int) is False:
+    #     raise HTTPException(status.HTTP_406_NOT_ACCEPTABLE,
+    #                         detail=f"Invalid payload data")
 
     if not verify_otp(str(payload.content)):
         raise HTTPException(status.HTTP_406_NOT_ACCEPTABLE,
@@ -56,8 +57,10 @@ def verify_reset(payload: schemas.PayloadSchema, connections: tuple = Depends(ge
     db, redis_db = connections
 
     user_id = redis_db.hget(str(payload.content), 'sub')
+    print(user_id)
 
-    user_to_reset = db.query(models.User).filter_by(id=user_id).first()
+    user_to_reset = db.query(models.User).filter(models.User.id == user_id).first()
+    print(user_to_reset)
 
     store_reset_token(str(payload.content), str(user_to_reset.id), token_data)
 
@@ -90,7 +93,7 @@ def reset_password(token: str, reset_pin: str, payload: schemas.PayloadSchema, c
     if payload is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND,
                             detail=f"An error occured while trying to reset your password.")
-        
+
     if stored_token_data == None:
         raise HTTPException(status.HTTP_404_NOT_FOUND,
                             detail=f"Invalid reset link.")
@@ -98,25 +101,23 @@ def reset_password(token: str, reset_pin: str, payload: schemas.PayloadSchema, c
     if not validate_reset_token(token, stored_token_data):
         raise HTTPException(status.HTTP_404_NOT_FOUND,
                             detail=f"Invalid reset link.")
-        
+
     user_id = redis_db.hget(reset_pin[::-1], 'sub')
-    
+
     if not user_id:
         raise HTTPException(status.HTTP_404_NOT_FOUND,
                             detail=f"An error occured while trying to reset your password.")
-        
+
     new_password = hash_passwd(payload.content)
-        
+
     query = db.query(models.User).filter_by(id=user_id)
     user = query.first()
     if user == None:
         raise HTTPException(status.HTTP_404_NOT_FOUND,
                             detail=f"An error occured while trying to reset your password.")
-        
-    query.update({models.User.password: new_password}, synchronize_session=False)
+
+    query.update({models.User.password: new_password},
+                 synchronize_session=False)
     db.commit()
-    
+
     return {"Password reset successful."}
-    
-    
-    

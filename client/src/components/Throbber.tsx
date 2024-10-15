@@ -2,11 +2,14 @@ import React from "react";
 
 const Throbber = () => {
   return (
-    <>
+    <div
+      
+    >
       <svg
         width="24"
         height="24"
         viewBox="0 0 24 24"
+        fill="#00408A"
         xmlns="http://www.w3.org/2000/svg"
       >
         <style>
@@ -57,7 +60,7 @@ const Throbber = () => {
           height="10"
         />
       </svg>
-    </>
+    </div>
   );
 };
 

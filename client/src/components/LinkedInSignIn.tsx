@@ -28,7 +28,9 @@ const LinkedInSignIn = ({ setSignedUp }: any) => {
 
   return (
     <>
-      <a href={linkedInLogin}>Continue with LinkedIn</a>
+      <a href={linkedInLogin}>
+        <img src="/src/assets/LI-In-Bug.png" height={40} alt="" />
+      </a>
     </>
   );
 };

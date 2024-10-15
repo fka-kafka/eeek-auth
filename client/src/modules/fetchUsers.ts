@@ -20,7 +20,7 @@ export async function initUsers(): Promise<any> {
 export async function getUsers(name: string): Promise<any> {
   console.log(name);
   try {
-    const response = await instance.post("/check_username/", { username: name });
+    const response = await instance.post("/check_username/", { content: name });
     console.dir(response.data.found);
     return response.data.found;
   } catch (error) {

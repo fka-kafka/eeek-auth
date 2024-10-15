@@ -7,11 +7,10 @@ const LoginForm = ({ setLoading, setLoggedIn, setError, setErrorMsg }: any) => {
 
   return (
     <>
-      <h1>eeek!</h1>
       <form
-        id="newUserForm"
+        id="loginUserForm"
         action=""
-        name="Signup"
+        name="Login"
         onSubmit={async (e) => {
           e.preventDefault();
           setLoading(true);
@@ -33,12 +32,12 @@ const LoginForm = ({ setLoading, setLoggedIn, setError, setErrorMsg }: any) => {
           }
         }}
       >
-        <div>
-          <label htmlFor="email">Email: </label>
+        <div className="credentials_div">
+          <label htmlFor="email">Email or Username: </label>
           <div>
             <input
               className="email"
-              type="email"
+              type="text"
               name="email"
               id="email"
               value={credential}
@@ -50,7 +49,7 @@ const LoginForm = ({ setLoading, setLoggedIn, setError, setErrorMsg }: any) => {
             />
           </div>
         </div>
-        <div>
+        <div className="password_div">
           <label htmlFor="password">Password: </label>
           <div>
             <input
@@ -69,6 +68,9 @@ const LoginForm = ({ setLoading, setLoggedIn, setError, setErrorMsg }: any) => {
           </div>
         </div>
       </form>
+      <div className="forgotPassword">
+        <a href="/forgot-password">Forgot password?</a>
+      </div>
     </>
   );
 };

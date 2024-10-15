@@ -54,7 +54,7 @@ def sso_login(payload: schemas.PayloadSchema, provider: str, db: Session = Depen
         elif provider == 'google':
             user_data = get_user_info(payload.content)
             user_info = create_gsi_user_model(user_data)
-        
+
         verified_user = validate_sso_user(user_info, db)
         to_authorize = schemas.UserSchema.model_validate(verified_user)
         token = generate_session_token(to_authorize)

@@ -1,0 +1,103 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+@import url("https://fonts.cdnfonts.com/css/bogle");
+
+:root {
+  /* FONTS */
+  --FF-P: "Bogle";
+  --FF-S: "Playfair Display";
+  --FF-T: "Quicksand";
+
+  /* COLORS */
+  --COLOR-P: #000;
+  --COLOR-S: #fff;
+  --COLOR-T: #034694;
+  --COLOR-TEXT-SHADOW: #00000040;
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+}
+
+.landingPage {
+  background-color: var(--COLOR-T);
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 2fr, 1fr;
+}
+
+.content {
+  grid-column: 1/2;
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  font-family: var(--FF-S), serif;
+  font-size: 128px;
+  color: var(--COLOR-S);
+  text-shadow: 0 4px 4px hsla(0, 0%, 0%, 0.25);
+}
+
+.tagLine {
+  font-family: var(--FF-S), serif;
+}
+
+.introduction {
+  margin-left: 16%;
+}
+
+.tagLine_article {
+  color: var(--COLOR-S);
+  font-size: 20px;
+  text-shadow: 0 4px 4px var(--COLOR-TEXT-SHADOW);
+}
+
+.div_getStarted {
+  margin-top: 7.5%;
+}
+
+.getStarted {
+  font-family: var(--FF-T), serif;
+  color: var(--COLOR-T);
+  background-color: var(--COLOR-S);
+  width: fit-content;
+  padding: 1.1%;
+  border: 1px solid #1961b5;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bolder;
+  box-shadow: 0 4px 4px 0 var(--COLOR-TEXT-SHADOW);
+  transition: all 0.125s ease-in-out;
+}
+
+.getStarted:hover {
+  background-color: transparent;
+  color: var(--COLOR-S);
+}
+
+.landingPage_image {
+  grid-column: 2 / 3;
+  background-image: url("/src/assets/WEEE.jpg");
+  background-position: center;
+  background-size: cover;
+  mix-blend-mode: hard-light;
+  filter: blur(1.5px);
+}
+
+.termsAndConditions {
+  max-width: 30vw;
+  text-align: center;
+  font-size: 12px;
+  margin-top: 5px;
+  color: #000;
+}

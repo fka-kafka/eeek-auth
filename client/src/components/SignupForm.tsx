@@ -1,12 +1,20 @@
 import { useEffect, useState } from "react";
-import "../form.css";
 import users from "../../MOCK_DATA.json" assert { type: "json" };
 import { userSignUp } from "../modules/submitNewUser";
 import { NewUserType } from "../modules/submitNewUser";
 import { initUsers } from "../modules/fetchUsers";
 import { debounce } from "../modules/debouncer";
+import Error from "../components/ErrorMessage";
 
-const SignupForm = ({ setLoading, setSignedUp, setError, setErrorMsg }: any) => {
+const SignupForm = ({
+  setLoading,
+  setSignedUp,
+  setError,
+  setErrorMsg,
+  error,
+  loading,
+  errorMsg,
+}: any) => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
   const [username, setUsername] = useState("");
@@ -14,6 +22,7 @@ const SignupForm = ({ setLoading, setSignedUp, setError, setErrorMsg }: any) => 
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [foundUser, setFoundUser] = useState<boolean | null>(null);
+  const [passwordRules, setPasswordRules] = useState<boolean>(false);
 
   useEffect(() => {
     initUsers();
@@ -41,14 +50,8 @@ const SignupForm = ({ setLoading, setSignedUp, setError, setErrorMsg }: any) => 
     return userArray;
   });
 
-  // function usernameChecker(username: string) {
-  //   let found = userArray.find((element: string) => element === username);
-  //   return found ? true : false;
-  // }
-
   return (
-    <>
-      <h1>eeek!</h1>
+    <div className="signupForm">
       <form
         id="newUserForm"
         action=""
@@ -61,18 +64,16 @@ const SignupForm = ({ setLoading, setSignedUp, setError, setErrorMsg }: any) => 
           if (response === 201) {
             setSignedUp(true);
             setTimeout(() => {
-              window.location.reload()
+              window.location.reload();
             }, 3000);
           } else {
             setError(true);
-            setErrorMsg(
-              `${response.status} ${response.statusText}: ${response.data.detail}`
-            );
+            setErrorMsg(`${response.data.detail}`);
           }
         }}
       >
-        <section className="names">
-          <div>
+        <section className="newUserForm_names">
+          <div className="newUserForm_input">
             <label htmlFor="firstname">Firstname: </label>
             <div>
               <input
@@ -88,7 +89,7 @@ const SignupForm = ({ setLoading, setSignedUp, setError, setErrorMsg }: any) => 
               />
             </div>
           </div>
-          <div>
+          <div className="newUserForm_input">
             <label htmlFor="lastname">Lastname: </label>
             <div>
               <input
@@ -105,14 +106,55 @@ const SignupForm = ({ setLoading, setSignedUp, setError, setErrorMsg }: any) => 
             </div>
           </div>
         </section>
-        <section className="credentials">
-          <div>
-            <label htmlFor="username">Username: </label>
+        <section className="newUserForm_credentials">
+          <div className="newUserForm_input">
+            <div className="isUsernameValid">
+              <label htmlFor="username">Username: </label>
+              <div
+                style={{
+                  visibility:
+                    foundUser === null || username === ""
+                      ? "hidden"
+                      : "visible",
+                }}
+              >
+                {foundUser ? (
+                  <span aria-hidden="true" className="invalidUsername">
+                    <svg
+                      aria-hidden="true"
+                      focusable="false"
+                      className="invalidSvg"
+                      viewBox="0 0 12 12"
+                      width="12"
+                      height="12"
+                      fill={"#da3633"}
+                    >
+                      <path d="M4.855.708c.5-.896 1.79-.896 2.29 0l4.675 8.351a1.312 1.312 0 0 1-1.146 1.954H1.33A1.313 1.313 0 0 1 .183 9.058ZM7 7V3H5v4Zm-1 3a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"></path>
+                    </svg>
+                  </span>
+                ) : (
+                  <span aria-hidden="true" className="validUsername">
+                    <svg
+                      aria-hidden="true"
+                      focusable="false"
+                      className="validSvg"
+                      viewBox="0 0 12 12"
+                      width="12"
+                      height="12"
+                      fill="green"
+                    >
+                      <path d="M6 0a6 6 0 1 1 0 12A6 6 0 0 1 6 0Zm-.705 8.737L9.63 4.403 8.392 3.166 5.295 6.263l-1.7-1.702L2.356 5.8l2.938 2.938Z"></path>
+                    </svg>
+                  </span>
+                )}
+              </div>
+            </div>
             <div>
               <input
                 type="text"
                 name="username"
                 id="username"
+                className="username"
                 value={username}
                 maxLength={32}
                 onInput={(e) => {
@@ -120,49 +162,17 @@ const SignupForm = ({ setLoading, setSignedUp, setError, setErrorMsg }: any) => 
                   //usernameChecker(e.currentTarget.value);
                 }}
                 required
+                style={
+                  username === ""
+                    ? { border: ".1px solid hsla(0, 0%, 0%, 0.4)" }
+                    : foundUser
+                    ? { border: "2px solid #da3633" }
+                    : { border: "2px solid green" }
+                }
               />
-              <div>
-                <button>
-                  {username !== "" ? (
-                    foundUser ? (
-                      <svg
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                      >
-                        <path
-                          d="M10.9997 8.24997V11.9166M10.9997 15.5833H11.0089M9.7304 3.56738L2.19092 16.5901C1.77274 17.3124 1.56364 17.6736 1.59455 17.97C1.6215 18.2286 1.75696 18.4635 1.9672 18.6164C2.20825 18.7916 2.62557 18.7916 3.46022 18.7916H18.5392C19.3738 18.7916 19.7911 18.7916 20.0322 18.6164C20.2424 18.4635 20.3779 18.2286 20.4048 17.97C20.4357 17.6736 20.2267 17.3124 19.8085 16.5901L12.269 3.56738C11.8523 2.84764 11.644 2.48778 11.3721 2.36691C11.135 2.26148 10.8644 2.26148 10.6273 2.36691C10.3554 2.48778 10.1471 2.84765 9.7304 3.56738Z"
-                          stroke="#8C0020"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        ></path>
-                      </svg>
-                    ) : (
-                      <svg
-                        width="18"
-                        height="18"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                      >
-                        <path
-                          d="M10.9999 7.33325V10.9999M10.9999 14.6666H11.0091M20.1666 10.9999C20.1666 16.0625 16.0625 20.1666 10.9999 20.1666C5.93731 20.1666 1.83325 16.0625 1.83325 10.9999C1.83325 5.93731 5.93731 1.83325 10.9999 1.83325C16.0625 1.83325 20.1666 5.93731 20.1666 10.9999Z"
-                          stroke="#002570"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        ></path>
-                      </svg>
-                    )
-                  ) : (
-                    ""
-                  )}
-                </button>
-              </div>
             </div>
           </div>
-          <div>
+          <div className="newUserForm_input">
             <label htmlFor="email">Email: </label>
             <div>
               <input
@@ -180,8 +190,8 @@ const SignupForm = ({ setLoading, setSignedUp, setError, setErrorMsg }: any) => 
             </div>
           </div>
         </section>
-        <section>
-          <div>
+        <section className="newUserForm_secrets">
+          <div className="newUserForm_input">
             <label htmlFor="password">Password: </label>
             <div>
               <input
@@ -190,18 +200,20 @@ const SignupForm = ({ setLoading, setSignedUp, setError, setErrorMsg }: any) => 
                 id="password"
                 value={password}
                 minLength={8}
-                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{12,}$"
                 maxLength={64}
                 onChange={(e) => {
                   setPassword(e.target.value);
                 }}
+                onFocus={() => setPasswordRules(true)}
                 required
+                title="See the password rules below. Characters allowed: @$!%*?&"
               />
             </div>
           </div>
-          <div>
+          <div className="newUserForm_input">
             <label htmlFor="password_assert">Password confirmation: </label>
-            <div>
+            <div className=".password_assert_div">
               <input
                 type="password"
                 name="password_assert"
@@ -214,16 +226,48 @@ const SignupForm = ({ setLoading, setSignedUp, setError, setErrorMsg }: any) => 
                   setPasswordConfirmation(e.target.value);
                 }}
                 required
+                style={
+                  passwordConfirmation === ""
+                    ? { border: ".1px solid hsla(0, 0%, 0%, 0.4)" }
+                    : password === passwordConfirmation
+                    ? { border: "2px solid green" }
+                    : { border: "2px solid #da3633" }
+                }
               />
             </div>
           </div>
         </section>
       </form>
-    </>
+      <section style={{ display: passwordRules ? "contents" : "none" }}>
+        <div className="rulesAndErrors">
+          <article className="rules_article">
+            <p className="passwordRules">
+              Your password must include the following:
+            </p>
+            <p className="passwordInstructions">
+              Be at least <strong>12 characters</strong> long
+              <br />
+              At least one <strong>Upper</strong> & <strong>lower</strong> case
+              letter
+              <br />
+              At least <strong>one number</strong> and <strong>special</strong>{" "}
+              character
+            </p>
+          </article>
+          <div className="error_div">
+            <div
+              className="errorMsg"
+              style={{ display: error && !loading ? "contents" : "none" }}
+            >
+              <Error errorMsg={errorMsg} />
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 };
 
 export default SignupForm;
-
 
 //http://localhost:5173/?code=AQTHrJqedZmPOeR59na6d0LSQ4YgZEJapywmwy_4_eomG973HkTa79k50fFEt-eKb5kTWSkxFA5a3pWgJNCCX099gryoBBJxuiUErY31f8jf46JFy642SND-SlVlOwAM2bwkW2blG9X3oVCUPD75HZlLantgRuufHH0XyjGxwg6v2kWV1h2mjRH5gEUKnhLBDMdIi4mKJ6h3Nk_F_pA

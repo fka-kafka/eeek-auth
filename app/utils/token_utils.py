@@ -10,7 +10,7 @@ settings = get_settings()
 
 def generate_token_data():
     expiry = datetime.now(
-        UTC) + timedelta(minutes=int(settings.reset_token_expiry_minutes))
+        UTC) + timedelta(seconds=int(settings.reset_token_expiry_seconds))
 
     token = token_urlsafe(64)
 

@@ -45,7 +45,7 @@ async def check_username(payload: schemas.PayloadSchema, redis_conn: redis.Redis
             raise HTTPException(
                 status_code=status.HTTP_404_NOT_FOUND, detail="Usernames not initialized")
         decoded_names = json.loads(names)
-        return {'found': payload.conten in decoded_names}
+        return {'found': payload.content in decoded_names}
     except redis.RedisError as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Redis error: {str(e)}")

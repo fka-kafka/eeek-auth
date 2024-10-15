@@ -29,7 +29,7 @@ def store_reset_token(key: str, sub: str = '', mapping: dict[str, Any] = {}) -> 
     }
     try:
         new_token = redis_db.hset(key, mapping=store_mapping)
-        redis_db.expire(key, settings.reset_token_expiry_minutes)
+        redis_db.expire(key, settings.reset_token_expiry_seconds)
         return new_token
     except redis.RedisError as e:
         # Raise the original Redis exception with a custom message for more context

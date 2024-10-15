@@ -1,29 +1,33 @@
 import React from "react";
 import Throbber from "./Throbber";
-import Error from "./ErrorMessage";
+import "../assets/styles/submit.css";
 
-const ButtonAndError = ({ loading, error, errorMsg }: any) => {
+const ButtonAndError = ({ loading }: any) => {
+  let page = window.location.href;
+
   return (
     <>
-      <div>
-        <div>
-          {loading ? (
-            ""
+      <div
+        className="buttonAndError"
+        style={{
+          margin: "2vh 0",
+        }}
+      >
+        <div
+          className="button_div"
+          style={{ display: loading ? "none" : "contents" }}
+        >
+          {page.includes("login") ? (
+            <button className="loginUser" type="submit" form="loginUserForm">
+              Log In
+            </button>
           ) : (
-            <button
-              style={{
-                margin: "4px 0",
-              }}
-              type="submit"
-              form="newUserForm"
-            >
+            <button className="submitNewUser" type="submit" form="newUserForm">
               Sign Up
             </button>
           )}
         </div>
-        <div>
-          {loading ? <Throbber /> : error ? <Error errorMsg={errorMsg} /> : ""}
-        </div>
+        <div>{loading ? <Throbber /> : ""}</div>
       </div>
     </>
   );

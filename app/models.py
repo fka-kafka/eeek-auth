@@ -1,6 +1,6 @@
 from sqlalchemy import TIMESTAMP, Boolean, Column, String, Uuid, text
 
-from app.database import Base
+from database import Base
 
 class User(Base):
     __tablename__ = 'users'

@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
-from app import schemas
-from app.crud.users import create_sso_user, create_user
-from app.database import get_db
-from app.services.google_sso_service import get_user_info, create_gsi_user_model
-from app.services.linkedin_sso_service import create_linkedin_user_model, get_access_token
+import schemas
+from crud.users import create_sso_user, create_user
+from database import get_db
+from services.google_sso_service import get_user_info, create_gsi_user_model
+from services.linkedin_sso_service import create_linkedin_user_model, get_access_token
 
 
 router = APIRouter(

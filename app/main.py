@@ -2,11 +2,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 
-from app import models
-from app.database import engine
-from app.routers import auth_login, auth_signup, auth_reset
-from app.services.cache_service import app0
-from app.config import get_settings
+import models
+from database import engine
+from routers import auth_login, auth_signup, auth_reset
+from services.cache_service import app0
+from config import get_settings
 
 models.Base.metadata.create_all(bind=engine)
 settings = get_settings()

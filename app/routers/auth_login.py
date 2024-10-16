@@ -5,13 +5,13 @@ from google.oauth2 import id_token
 from google.auth.transport import requests
 
 
-from app import schemas
-from app.database import get_db
-from app.config import get_settings
-from app.utils.auth_utils import validate_sso_user, validate_user
-from app.utils.jwt_utils import generate_session_token
-from app.services.google_sso_service import get_user_info, create_gsi_user_model
-from app.services.linkedin_sso_service import get_access_token, create_linkedin_user_model
+import schemas
+from database import get_db
+from config import get_settings
+from utils.auth_utils import validate_sso_user, validate_user
+from utils.jwt_utils import generate_session_token
+from services.google_sso_service import get_user_info, create_gsi_user_model
+from services.linkedin_sso_service import get_access_token, create_linkedin_user_model
 
 
 settings = get_settings()

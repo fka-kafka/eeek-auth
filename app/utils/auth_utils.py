@@ -5,9 +5,9 @@ from typing import Annotated, Any, Callable
 import jwt
 
 
-from app import models
-from app.database import get_db
-from app.utils.hash_utils import validate_passwd
+import models
+from database import get_db
+from utils.hash_utils import validate_passwd
 
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='login')

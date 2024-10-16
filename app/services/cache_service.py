@@ -5,10 +5,10 @@ from fastapi import Depends, FastAPI, status, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 
-from app import models, schemas
-from app.config import get_settings
-from app.redis import get_redis
-from app.utils.connection_utils import get_connections
+import models, schemas
+from config import get_settings
+from redis_db import get_redis
+from utils.connection_utils import get_connections
 
 app0 = FastAPI()
 

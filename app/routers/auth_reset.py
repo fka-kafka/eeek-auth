@@ -1,16 +1,16 @@
 from fastapi import Depends, HTTPException, status
 from fastapi.routing import APIRouter
 from httpx import get
-from app import models, schemas
-from app.database import get_db
-from app.utils.connection_utils import get_connections
+import models, schemas
+from database import get_db
+from utils.connection_utils import get_connections
 from sqlalchemy.orm import Session
 
-from app.services.email_service import send_coded_email
-from app.utils.hash_utils import hash_passwd
-from app.utils.otp_utils import verify_otp, generate_otp
-from app.utils.redis_utils import get_reset_token, store_reset_token
-from app.utils.token_utils import generate_token_data, validate_reset_token
+from services.email_service import send_coded_email
+from utils.hash_utils import hash_passwd
+from utils.otp_utils import verify_otp, generate_otp
+from utils.redis_utils import get_reset_token, store_reset_token
+from utils.token_utils import generate_token_data, validate_reset_token
 
 router = APIRouter(
     prefix="/forgot-password",

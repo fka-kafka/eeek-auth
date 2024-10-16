@@ -4,8 +4,8 @@ from datetime import UTC, datetime, timedelta
 from fastapi.security import OAuth2PasswordBearer
 
 
-from app import schemas
-from app.config import get_settings
+import schemas
+from config import get_settings
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='login')
 

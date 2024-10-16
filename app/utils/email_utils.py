@@ -1,6 +1,6 @@
 from typing import Dict, Optional
 from jinja2 import Environment, PackageLoader, TemplateNotFound, select_autoescape
-from app.utils.otp_utils import generate_otp
+
 
 def generate_email_content(data: str, template: str, pin: Optional[str]) -> str:
     """

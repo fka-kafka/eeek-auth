@@ -4,9 +4,8 @@ from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
 
 
-from app import schemas, models
-from app.utils.hash_utils import hash_passwd
-from app.utils.token_utils import generate_sso_secret
+import schemas, models
+from utils.hash_utils import hash_passwd
 
 
 def create_user(user: schemas.UserSignup, db: Session):

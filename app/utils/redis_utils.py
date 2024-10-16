@@ -1,8 +1,9 @@
 from typing import Any, Optional
-from app.redis import get_redis
 import redis  # Import the Redis exception class if you're using the Redis library
 
-from app.config import get_settings
+
+from redis_db import get_redis
+from config import get_settings
 
 settings = get_settings()
 

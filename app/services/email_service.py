@@ -3,8 +3,8 @@ from email.headerregistry import Address
 from smtplib import SMTP, SMTPException
 from typing import Optional
 
-from app.utils.email_utils import generate_email_content
-from app.config import get_settings
+from utils.email_utils import generate_email_content
+from config import get_settings
 
 settings = get_settings()
 

@@ -3,8 +3,8 @@ import requests
 from urllib.parse import urlencode
 
 
-from app.config import get_settings
-from app.utils.token_utils import generate_sso_secret
+from config import get_settings
+from utils.token_utils import generate_sso_secret
 
 
 settings = get_settings()

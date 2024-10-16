@@ -2,8 +2,8 @@ import string
 import secrets
 from secrets import token_urlsafe
 from datetime import UTC, datetime, timedelta, timezone
-from app.utils.hash_utils import generate_token_hash, hash_passwd, validate_token_hash
-from app.config import get_settings
+from utils.hash_utils import generate_token_hash, hash_passwd, validate_token_hash
+from config import get_settings
 
 settings = get_settings()
 

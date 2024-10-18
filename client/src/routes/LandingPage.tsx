@@ -1,24 +1,24 @@
 import React from "react";
-import "../assets/styles/root.css";
+import "../assets/styles/landingPage.css";
 
 const LandingPage = () => {
   return (
     <main className="landingPage">
-      <div className="content">
-        <section className="introduction">
-          <h1 className="title">eeek!</h1>
-          <article className="tagLine_article">
-            <p className="tagLine">
+      <div className="landingPage_content">
+        <section className="landingPage_introduction">
+          <h1 className="landingPage_title">eeek!</h1>
+          <article className="landingPage_article">
+            <p className="landingPage_tagLine">
               Old TVs? obsolete equipment? — we re-purpose
               <br />
-              your 'junk' from being yet <strong>another</strong> reason a
+              your 'junk' from being yet <b>another</b> reason a
               turtle
               <br />
               chokes to death in its natural habbitat.
             </p>
           </article>
-          <div className="div_getStarted">
-            <a className="getStarted" href={"/signup"}>
+          <div className="landingPage_div">
+            <a className="landingPage_a" href={"/signup"}>
               Get started
             </a>
           </div>

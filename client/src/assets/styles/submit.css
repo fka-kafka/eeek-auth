@@ -12,10 +12,14 @@
     font-weight: 800;
     border-radius: 8px;
     border: none;
-    background-color: #00408A;
+    background-color: #00408a;
     color: #fff;
     text-align: center;
     box-shadow: 0 4px 4px 0 var(--COLOR-TEXT-SHADOW);
+}
+
+.submitNewUser:disabled {
+    background-color: gray;
 }
 
 .loginUser {
@@ -26,13 +30,14 @@
     font-weight: 800;
     border-radius: 8px;
     border: none;
-    background-color: #00408A;
+    background-color: #00408a;
     color: #fff;
     text-align: center;
     box-shadow: 0 4px 4px 0 var(--COLOR-TEXT-SHADOW);
 }
 
-.submitNewUser:hover, .loginUser:hover {
+.submitNewUser:hover,
+.loginUser:hover {
     cursor: pointer;
 }
 

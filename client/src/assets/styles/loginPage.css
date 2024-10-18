@@ -7,13 +7,14 @@
 
 .loginPage_image {
   grid-column: 1/2;
-  background-image: url("/src/assets/WEEE2.jpeg");
+  background-image: url("/src/assets/images/WEEE2.jpeg");
   background-position: center;
   background-size: cover;
+  filter: blur(2px);
 }
 
 .loginPage_image:hover {
-  filter: blur(2px);
+  filter: blur(0px);
   transition: filter 0.7s ease-in-out;
 }
 
@@ -93,7 +94,7 @@ h2 {
 }
 
 button:hover {
-  scale: 0.975;
+  scale: 0.95;
   background-color: hsla(212, 100%, 27%, 0.95);
   transition: scale 0.25s normal;
 }

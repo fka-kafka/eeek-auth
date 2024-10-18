@@ -1,158 +1,157 @@
-.signupPage {
-  height: 100vh;
-  font-family: var(--FF-P);
-}
-
 .signupPage_main {
-  height: 80%;
+    min-height: 80vh;
 }
 
 .signupPage_content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .signupForm {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 h1 {
-  color: var(--COLOR-T);
-  font-size: 64px;
-  padding-top: 3vh;
+    color: var(--COLOR-T);
+    font-size: 4rem;
+    padding-top: 3vh;
 }
 
 h2 {
-  font-size: 24px;
-  font-weight: 600;
+    font-size: 1.5rem;
+    font-weight: 600;
 }
 
 #newUserForm {
-  margin-top: 1.67vh;
+    margin-top: 1.67vh;
 }
 
 #newUserForm label {
-  font-size: 12px;
-  font-weight: 600;
-  padding-left: 4px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding-left: 4px;
 }
 
 #newUserForm input {
-  padding: 0 5px;
-  border: 0.1px solid hsla(0, 0%, 0%, 0.4);
-  border-radius: 4px;
-  min-height: 4vh;
-  min-width: 20vw;
-  box-shadow: 0 1px 1px 0 var(--COLOR-TEXT-SHADOW);
+    padding: 0 10px;
+    border: 0.1px solid hsla(0, 0%, 0%, 0.4);
+    border-radius: 5px;
+    min-height: 1.75rem;
+    min-width: 17.5rem;
+    box-shadow: 0 1px 1px 0 var(--COLOR-TEXT-SHADOW);
+    line-height: 100%;
 }
 
 .newUserForm_names,
 .newUserForm_credentials,
 .newUserForm_secrets {
-  display: flex;
+    display: flex;
 }
 .newUserForm_credentials,
 .newUserForm_secrets {
-  margin-top: 1.67vh;
+    margin-top: 0.75rem;
 }
 
 .newUserForm_input {
-  margin: 0 1.67vw;
+    margin: 0 1rem;
 }
 
 .isUsernameValid {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
 .validUsername,
 .invalidUsername {
-  margin-right: 4px;
+    margin-right: 4px;
 }
 
 .passwordRules {
-  padding-top: 2.8vh;
-  font-size: 14px;
-  font-weight: 600;
+    padding-top: 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
 }
 
 .passwordInstructions {
-  margin-right: 20px;
-  font-size: 12px;
+    margin-right: 1.25rem;
+    font-size: 0.75rem;
 }
 
 .rulesAndErrors {
-  display: grid;
-  gap: 12px;
-  grid-template-columns: 50%, 50%;
-  grid-template-rows: 100%;
-  max-width: 40vw;
-  min-width: 40vw;
+    display: grid;
+    gap: 12px;
+    grid-template-columns: 50%, 50%;
+    grid-template-rows: 100%;
+    max-width: 40vw;
+    min-width: 40vw;
 }
 
 .rules_article {
-  grid-column: 1/2;
-  max-width: 20vw;
+    grid-column: 1/2;
+    max-width: 20vw;
 }
 
 .error_div {
-  padding-top: 2.8vh;
-  grid-column: 2/3;
-  max-width: 20vw;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+    padding-top: 2.8vh;
+    grid-column: 2/3;
+    max-width: 20vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .errorMsg {
-  font-size: 12px;
+    font-size: 0.75rem;
 }
 
 .ssoServices {
-  margin: 1.5vh 0;
-  width: 21vw;
-  display: flex;
-  justify-content: space-evenly;
+    margin: 1.5vh 0;
+    width: 21vw;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .alreadySignedUp {
-  font-weight: 500;
-  font-size: 14px;
+    font-weight: 500;
+    font-size: 0.875rem;
 }
 
 .login_redirect {
-  text-decoration: underline;
-  color: var(--FF-P);
-  font-weight: 600;
+    text-decoration: underline;
+    color: var(--FF-P);
+    font-weight: 600;
 }
 
 .signupPage_footer {
-  max-width: 100vw;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
+    max-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 20vh;
+}
+
+.termsAndConditions {
+    max-width: clamp(45ch, 30%, 75ch);
+    text-align: center;
+    font-size: 0.75rem;
 }
 
 .termsAndConditions span {
-  text-decoration: underline;
-  font-weight: 600;
-}
-
-.signupPage_footer {
-  height: 20%;
+    text-decoration: underline;
+    font-weight: 600;
 }
 
 .footer_content {
-  height: 12vh;
-  background-color: #00408a;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  font-size: 14px;
-  width: 100%;
+    height: 12vh;
+    color: var(--COLOR-S);
+    background-color: var(--COLOR-T2);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 0.875rem;
+    width: 100%;
 }

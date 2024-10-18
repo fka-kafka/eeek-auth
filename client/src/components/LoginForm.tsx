@@ -1,7 +1,16 @@
 import { useState } from "react";
 import { userLogIn } from "../modules/submitNewUser";
+import Error from "./ErrorMessage";
 
-const LoginForm = ({ setLoading, setLoggedIn, setError, setErrorMsg }: any) => {
+const LoginForm = ({
+  setLoading,
+  setLoggedIn,
+  setError,
+  setErrorMsg,
+  error,
+  errorMsg,
+  loading,
+}: any) => {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
 
@@ -14,32 +23,27 @@ const LoginForm = ({ setLoading, setLoggedIn, setError, setErrorMsg }: any) => {
         onSubmit={async (e) => {
           e.preventDefault();
           setLoading(true);
-          const response = await userLogIn({
-            credential: credential,
-            secret: password,
-          });
+          const response = await userLogIn(credential, password);
           setLoading(false);
-          if (response === 201) {
+          if (response.status === 200) {
             setLoggedIn(true);
             setTimeout(() => {
               window.location.reload();
             }, 3000);
           } else {
             setError(true);
-            setErrorMsg(
-              `${response.status} ${response.statusText}: ${response.data.detail}`
-            );
+            setErrorMsg(`${response.data.detail}`);
           }
         }}
       >
         <div className="credentials_div">
-          <label htmlFor="email">Email or Username: </label>
+          <label htmlFor="credential">Email or Username: </label>
           <div>
             <input
-              className="email"
+              className="credential"
               type="text"
-              name="email"
-              id="email"
+              name="credential"
+              id="credential"
               value={credential}
               maxLength={256}
               onChange={(e) => {
@@ -70,6 +74,14 @@ const LoginForm = ({ setLoading, setLoggedIn, setError, setErrorMsg }: any) => {
       </form>
       <div className="forgotPassword">
         <a href="/forgot-password">Forgot password?</a>
+      </div>
+      <div className="error_div">
+        <div
+          className="errorMsg"
+          style={{ display: error && loading === false ? "contents" : "none" }}
+        >
+          <Error errorMsg={errorMsg} />
+        </div>
       </div>
     </>
   );

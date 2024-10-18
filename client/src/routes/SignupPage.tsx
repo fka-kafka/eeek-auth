@@ -27,7 +27,7 @@ function SignupPage() {
             errorMsg={errorMsg}
             loading={loading}
           />
-          <ButtonAndError loading={loading} />
+          <ButtonAndError loading={loading} signedUp={signedUp} />
           <div className="ssoServices">
             <GoogleSignIn setSignedUp={setSignedUp} />
             <LinkedInSignIn setSignedUp={setSignedUp} />
@@ -49,8 +49,8 @@ function SignupPage() {
           <p>Give feedback</p>
           <p>&copy; eeek!-inc {new Date().getFullYear()}</p>
           <p>
-            <img src="/src/assets/privacy.png" height="10px" alt="" /> Your
-            Privacy Rights
+            <img src="/src/assets/images/privacy.png" height="10px" alt="" />{" "}
+            Your Privacy Rights
           </p>
         </article>
       </footer>

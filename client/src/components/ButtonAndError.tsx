@@ -2,7 +2,7 @@ import React from "react";
 import Throbber from "./Throbber";
 import "../assets/styles/submit.css";
 
-const ButtonAndError = ({ loading }: any) => {
+const ButtonAndError = ({ loading, signedUp }: any) => {
   let page = window.location.href;
 
   return (
@@ -22,7 +22,12 @@ const ButtonAndError = ({ loading }: any) => {
               Log In
             </button>
           ) : (
-            <button className="submitNewUser" type="submit" form="newUserForm">
+            <button
+              className="submitNewUser"
+              type="submit"
+              form="newUserForm"
+              disabled={signedUp ? true : false}
+            >
               Sign Up
             </button>
           )}

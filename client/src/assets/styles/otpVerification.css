@@ -1,0 +1,84 @@
+.otpVerification_main {
+  font-family: var(--FF-P);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  min-width: 100vh;
+}
+
+.otpVerification_main article {
+  max-width: clamp(45ch, 30%, 75ch);
+  font-size: 0.875rem;
+  margin: 5px 0;
+  text-align: center;
+}
+
+.otpVerification_div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 12px 0;
+  min-height: 120px;
+}
+
+.otpVerification_div label {
+  font-weight: 600;
+}
+
+.otpVerification_div input {
+  padding: 0 5px;
+  border: 0.1px solid hsla(0, 0%, 0%, 0.4);
+  border-radius: 5px;
+  min-height: 2rem;
+  min-width: 15rem;
+  box-shadow: 0 1px 1px 0 var(--COLOR-TEXT-SHADOW);
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 100%;
+}
+
+.otpVerification_section a {
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #000;
+  min-width: inherit;
+}
+
+.otpVerification_footer {
+  display: flex;
+  min-height: 20vh;
+  color: #fff;
+}
+
+.otpVerification_footer  article {
+    min-height: 12vh;
+    align-self: end;
+  }
+
+.otpVerification_div button {
+  margin: 12px 0;
+  font-family: var(--FF-T);
+  width: clamp(5rem, 6rem, 10rem);
+  min-height: 2rem;
+  font-size: 0.875rem;
+  font-weight: 800;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: var(--COLOR-T2);
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 4px 4px 0 var(--COLOR-TEXT-SHADOW);
+  cursor: pointer;
+  text-wrap: nowrap;
+}
+
+.otpVerification_div button:hover {
+  margin: 12px 0;
+  scale: 0.95;
+  background-color: hsla(212, 100%, 27%, 0.95);
+  transition: scale 0.25s normal;
+}
+

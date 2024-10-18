@@ -33,7 +33,7 @@ const ResetPassword = () => {
             }}
           >
             <section className="resetPasswordForm_secrets">
-              <div className="resetPasswordForm_input">
+              <div className="resetPasswordForm_div">
                 <label htmlFor="password">Password: </label>
                 <div>
                   <input
@@ -99,7 +99,7 @@ const ResetPassword = () => {
           <p>Give feedback</p>
           <p>&copy; eeek!-inc {new Date().getFullYear()}</p>
           <p>
-            <img src="/src/assets/privacy.png" height="10px" alt="" /> Your
+            <img src="/src/assets/images/privacy.png" height="10px" alt="" /> Your
             Privacy Rights
           </p>
         </article>

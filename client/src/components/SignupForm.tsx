@@ -60,6 +60,7 @@ const SignupForm = ({
           e.preventDefault();
           setLoading(true);
           const response = await userSignUp(newUser);
+          setError(false);
           setLoading(false);
           if (response === 201) {
             setSignedUp(true);
@@ -166,8 +167,8 @@ const SignupForm = ({
                   username === ""
                     ? { border: ".1px solid hsla(0, 0%, 0%, 0.4)" }
                     : foundUser
-                    ? { border: "2px solid #da3633" }
-                    : { border: "2px solid green" }
+                      ? { border: "2px solid #da3633" }
+                      : { border: "2px solid green" }
                 }
               />
             </div>
@@ -230,8 +231,8 @@ const SignupForm = ({
                   passwordConfirmation === ""
                     ? { border: ".1px solid hsla(0, 0%, 0%, 0.4)" }
                     : password === passwordConfirmation
-                    ? { border: "2px solid green" }
-                    : { border: "2px solid #da3633" }
+                      ? { border: "2px solid green" }
+                      : { border: "2px solid #da3633" }
                 }
               />
             </div>

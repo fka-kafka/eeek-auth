@@ -11,16 +11,10 @@ function LoginPage() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [error, setError] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
-  const [imgBlur, setImgBlur] = useState<boolean | null>(null);
 
   return (
     <div className="loginPage">
-      <section
-        className="loginPage_image"
-        onMouseLeave={() => setImgBlur(true)}
-        onMouseOver={() => setImgBlur(false)}
-        style={{ filter: imgBlur ? "blur(2px)" : "none" }}
-      ></section>
+      <section className="loginPage_image"></section>
       <div className="loginPage_content">
         <main className="loginPage_main">
           <h1>eeek!</h1>
@@ -31,6 +25,9 @@ function LoginPage() {
             setLoggedIn={setLoggedIn}
             setError={setError}
             setErrorMsg={setErrorMsg}
+            error={error}
+            errorMsg={errorMsg}
+            loading={loading}
           />
           <ButtonAndError loading={loading} errorMsg={errorMsg} error={error} />
           <div className="ssoServices">
@@ -53,8 +50,8 @@ function LoginPage() {
             <p>Give feedback</p>
             <p>&copy; eeek!-inc {new Date().getFullYear()}</p>
             <p>
-              <img src="/src/assets/privacy.png" height="10px" alt="" /> Your
-              Privacy Rights
+              <img src="/src/assets/images/privacy.png" height="10px" alt="" />{" "}
+              Your Privacy Rights
             </p>
           </article>
         </footer>

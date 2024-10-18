@@ -12,6 +12,7 @@
   --COLOR-P: #000;
   --COLOR-S: #fff;
   --COLOR-T: #034694;
+  --COLOR-T2: #00408a;
   --COLOR-TEXT-SHADOW: #00000040;
 }
 
@@ -23,49 +24,46 @@
   box-sizing: border-box;
 }
 
-body {
-  min-height: 100vh;
-}
-
 .landingPage {
+  font-family: var(--FF-S);
   background-color: var(--COLOR-T);
   height: 100vh;
   display: grid;
   grid-template-columns: 2fr, 1fr;
 }
 
-.content {
+.landingPage_content {
   grid-column: 1/2;
   display: flex;
   align-items: center;
 }
 
-.title {
+.landingPage_title {
   font-family: var(--FF-S), serif;
-  font-size: 128px;
+  font-size: 8rem;
   color: var(--COLOR-S);
   text-shadow: 0 4px 4px hsla(0, 0%, 0%, 0.25);
 }
 
-.tagLine {
+.landingPage_tagLine {
   font-family: var(--FF-S), serif;
 }
 
-.introduction {
+.landingPage_introduction {
   margin-left: 16%;
 }
 
-.tagLine_article {
+.landingPage_tagLine {
   color: var(--COLOR-S);
-  font-size: 20px;
+  font-size: 1.125rem;
   text-shadow: 0 4px 4px var(--COLOR-TEXT-SHADOW);
 }
 
-.div_getStarted {
+.landingPage_div {
   margin-top: 7.5%;
 }
 
-.getStarted {
+.landingPage_a {
   font-family: var(--FF-T), serif;
   color: var(--COLOR-T);
   background-color: var(--COLOR-S);
@@ -74,30 +72,30 @@ body {
   border: 1px solid #1961b5;
   border-radius: 6px;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 1.125rem;
   font-weight: bolder;
   box-shadow: 0 4px 4px 0 var(--COLOR-TEXT-SHADOW);
   transition: all 0.125s ease-in-out;
 }
 
-.getStarted:hover {
+.landingPage_a:hover {
   background-color: transparent;
   color: var(--COLOR-S);
 }
 
 .landingPage_image {
   grid-column: 2 / 3;
-  background-image: url("/src/assets/WEEE.jpg");
+  background-image: url("/src/assets/images/WEEE.jpg");
   background-position: center;
   background-size: cover;
   mix-blend-mode: hard-light;
   filter: blur(1.5px);
 }
 
-.termsAndConditions {
+/* .termsAndConditions {
   max-width: 30vw;
   text-align: center;
   font-size: 12px;
   margin-top: 5px;
   color: #000;
-}
+} */

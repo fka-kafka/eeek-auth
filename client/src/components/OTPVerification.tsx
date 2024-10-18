@@ -16,16 +16,16 @@ const OTPVerification = () => {
 
   return (
     <>
-      <main className="forgotPassword_main">
+      <main className="otpVerification_main">
         <h1>eeek!</h1>
         <h2>We emailed you a code</h2>
-        <article className="forgotPassword_main_article">
+        <article className="otpVerification_main_article">
           <p>Enter the verification code sent to your email address.</p>
         </article>
-        <section className="forgotPassword_section">
+        <section className="otpVerification_section">
           {!sentOTP ? (
-            <div className="forgotPassword_div">
-              <label htmlFor="recoveryEmail">Enter code:</label>
+            <div className="otpVerification_div">
+              <label htmlFor="otpVerification_div_label">Enter code:</label>
               <input
                 value={oTP}
                 id="OTP"
@@ -38,7 +38,7 @@ const OTPVerification = () => {
               </button>
             </div>
           ) : (
-            <div className="forgotPassword_div">
+            <div className="otpVerification_div">
               <p style={{ maxWidth: "30vw" }}>
                 An <b>email reset link</b> has been sent to the mailbox of the
                 email provided. It expires in <strong>15 minutes</strong>.
@@ -51,12 +51,12 @@ const OTPVerification = () => {
           <Link to={"/login"}> Try logging in</Link>
         </section>
       </main>
-      <footer className="forgotPassword_footer">
+      <footer className="otpVerification_footer">
         <article className="footer_content">
           <p>Give feedback</p>
           <p>&copy; eeek!-inc {new Date().getFullYear()}</p>
           <p>
-            <img src="/src/assets/privacy.png" height="10px" alt="" /> Your
+            <img src="/src/assets/images/privacy.png" height="10px" alt="" /> Your
             Privacy Rights
           </p>
         </article>

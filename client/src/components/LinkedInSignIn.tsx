@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
 import { userSSOSignUp } from "../modules/submitNewUser";
+import ln from '../assets/LI-In-Bug.png'
 
 const LinkedInSignIn = ({ setSignedUp }: any) => {
   const linkedInLogin = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${
@@ -29,7 +30,7 @@ const LinkedInSignIn = ({ setSignedUp }: any) => {
   return (
     <>
       <a href={linkedInLogin}>
-        <img src="/src/assets/LI-In-Bug.png" height={40} alt="" />
+        <img src={ln} height={40} alt="" />
       </a>
     </>
   );

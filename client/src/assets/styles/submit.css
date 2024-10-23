@@ -18,7 +18,7 @@
     box-shadow: 0 4px 4px 0 var(--COLOR-TEXT-SHADOW);
 }
 
-.submitNewUser:disabled {
+button:disabled {
     background-color: gray;
 }
 

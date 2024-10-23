@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import users from "../../MOCK_DATA.json" assert { type: "json" };
+import { useNavigate } from "react-router-dom";
 import { userSignUp } from "../modules/submitNewUser";
 import { NewUserType } from "../modules/submitNewUser";
 import { initUsers } from "../modules/fetchUsers";
@@ -23,6 +23,7 @@ const SignupForm = ({
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [foundUser, setFoundUser] = useState<boolean | null>(null);
   const [passwordRules, setPasswordRules] = useState<boolean>(false);
+  const navigate = useNavigate()
 
   useEffect(() => {
     initUsers();
@@ -44,12 +45,6 @@ const SignupForm = ({
     password,
   };
 
-  let userArray: string[] = [];
-  users.forEach((user) => {
-    userArray.push(user.username);
-    return userArray;
-  });
-
   return (
     <div className="signupForm">
       <form
@@ -65,7 +60,7 @@ const SignupForm = ({
           if (response === 201) {
             setSignedUp(true);
             setTimeout(() => {
-              window.location.reload();
+              navigate('/login')
             }, 3000);
           } else {
             setError(true);
@@ -100,6 +95,7 @@ const SignupForm = ({
                 value={lastname}
                 maxLength={32}
                 onChange={(e) => {
+                  
                   setLastname(e.target.value);
                 }}
                 required
@@ -159,6 +155,7 @@ const SignupForm = ({
                 value={username}
                 maxLength={32}
                 onInput={(e) => {
+                  setError(false)
                   setUsername(e.currentTarget.value);
                   //usernameChecker(e.currentTarget.value);
                 }}
@@ -167,8 +164,8 @@ const SignupForm = ({
                   username === ""
                     ? { border: ".1px solid hsla(0, 0%, 0%, 0.4)" }
                     : foundUser
-                      ? { border: "2px solid #da3633" }
-                      : { border: "2px solid green" }
+                    ? { border: "2px solid #da3633" }
+                    : { border: "2px solid green" }
                 }
               />
             </div>
@@ -231,8 +228,8 @@ const SignupForm = ({
                   passwordConfirmation === ""
                     ? { border: ".1px solid hsla(0, 0%, 0%, 0.4)" }
                     : password === passwordConfirmation
-                      ? { border: "2px solid green" }
-                      : { border: "2px solid #da3633" }
+                    ? { border: "2px solid green" }
+                    : { border: "2px solid #da3633" }
                 }
               />
             </div>
@@ -270,5 +267,3 @@ const SignupForm = ({
 };
 
 export default SignupForm;
-
-//http://localhost:5173/?code=AQTHrJqedZmPOeR59na6d0LSQ4YgZEJapywmwy_4_eomG973HkTa79k50fFEt-eKb5kTWSkxFA5a3pWgJNCCX099gryoBBJxuiUErY31f8jf46JFy642SND-SlVlOwAM2bwkW2blG9X3oVCUPD75HZlLantgRuufHH0XyjGxwg6v2kWV1h2mjRH5gEUKnhLBDMdIi4mKJ6h3Nk_F_pA

@@ -18,10 +18,10 @@ const ForgotPassword = () => {
     let response = await sendOTP(email);
     setLoading(false)
     console.log(response);
-    if (response === 202) {
+    if (response.status === 202) {
       setTimeout(() => {
         navigate("/forgot-password/verify-reset");
-      }, 5000);
+      }, 3000);
     }
   };
 
@@ -59,7 +59,7 @@ const ForgotPassword = () => {
                 viewBox="0 0 48 48"
                 version="1"
                 xmlns="http://www.w3.org/2000/svg"
-                enable-background="new 0 0 48 48"
+                enableBackground="new 0 0 48 48"
               >
                 <polygon
                   fill="#43A047"
@@ -83,7 +83,7 @@ const ForgotPassword = () => {
           <p>Give feedback</p>
           <p>&copy; eeek!-inc {new Date().getFullYear()}</p>
           <p>
-            <img src="/src/assets/privacy.png" height="10px" alt="" /> Your
+            <img src="/src/assets/images/privacy.png" height="10px" alt="" /> Your
             Privacy Rights
           </p>
         </article>

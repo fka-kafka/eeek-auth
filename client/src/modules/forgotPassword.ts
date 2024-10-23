@@ -2,7 +2,7 @@ import axios from "axios";
 import { URL } from "url";
 
 const instance = axios.create({
-  baseURL: "http://localhost:8000",
+  baseURL: import.meta.env.VITE_SERVER_URL,
   headers: {
     "Content-Type": "application/json",
   },
@@ -13,7 +13,7 @@ export async function sendOTP(email: string) {
     content: email,
   });
   console.log(response);
-  return response.status;
+  return response;
 }
 
 export async function verifyOTP(OTP: string) {
@@ -21,7 +21,7 @@ export async function verifyOTP(OTP: string) {
     content: OTP,
   });
   console.log(response);
-  return response.status;
+  return response;
 }
 
 export async function resetPassword(resetURL: URL, password: string) {
@@ -30,5 +30,5 @@ export async function resetPassword(resetURL: URL, password: string) {
     { content: password }
   );
   console.log(response);
-  return response.status;
+  return response;
 }

@@ -10,10 +10,8 @@ const LandingPage = () => {
           <article className="landingPage_article">
             <p className="landingPage_tagLine">
               Old TVs? obsolete equipment? — we re-purpose
-              <br />
               your 'junk' from being yet <b>another</b> reason a
               turtle
-              <br />
               chokes to death in its natural habbitat.
             </p>
           </article>

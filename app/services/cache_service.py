@@ -5,7 +5,8 @@ from fastapi import Depends, FastAPI, status, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 
-import models, schemas
+import models
+import schemas
 from config import get_settings
 from redis_db import get_redis
 from utils.connection_utils import get_connections
@@ -29,7 +30,6 @@ def init(connections: tuple = Depends(get_connections)):
         db, cache = connections
         usernames: List[str] = [
             name for (name,) in db.query(models.User.username).all()]
-        print(usernames)
         cache.set('usernames', json.dumps(usernames))
         return {"status": "initialization successful"}
     except Exception as e:

@@ -35,7 +35,6 @@ def validate_user(user_credentials: OAuth2PasswordRequestForm = Depends(), db: S
 
         return valid_user
     except AttributeError as error:
-        print(error)
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail="Please contact support. Details: Server Error.")
 
@@ -51,7 +50,6 @@ def validate_sso_user(user_credentials: dict[str, Any], db: Session = Depends(ge
                                 detail="Incorrect username or password. Do you have an account? If not, create one here!")
         return valid_user
     except Exception as error:
-        print(error)
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail="Please contact support. Details: Server Error")
 

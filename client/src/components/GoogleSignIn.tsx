@@ -8,7 +8,7 @@ const GoogleSignIn = ({ setSignedUp }: any) => {
   useEffect(() => {
     const loadGoogleScript = () => {
       const script = document.createElement("script");
-      script.src = "https://accounts.google.com/gsi/client";
+      script.src = import.meta.env.VITE_GSI_SCRIPT_SRC;
       script.async = true;
       script.defer = true;
       script.onload = initializeGoogleSignIn;

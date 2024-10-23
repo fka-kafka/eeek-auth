@@ -1,6 +1,5 @@
 from fastapi import Depends, HTTPException, status
 from fastapi.routing import APIRouter
-from httpx import get
 import models, schemas
 from database import get_db
 from utils.connection_utils import get_connections
@@ -30,7 +29,6 @@ def send_otp(payload: schemas.PayloadSchema, db: Session = Depends(get_db)):
     try:
         otp = generate_otp()
 
-        print(found_user.id, otp)
         store_reset_token(otp, str(found_user.id))
 
         send_coded_email(otp, 'otp.html', found_user.email, f"{found_user.firstname} {
@@ -57,10 +55,8 @@ def verify_reset(payload: schemas.PayloadSchema, connections: tuple = Depends(ge
     db, redis_db = connections
 
     user_id = redis_db.hget(str(payload.content), 'sub')
-    print(user_id)
 
     user_to_reset = db.query(models.User).filter(models.User.id == user_id).first()
-    print(user_to_reset)
 
     store_reset_token(str(payload.content), str(user_to_reset.id), token_data)
 

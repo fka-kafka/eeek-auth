@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import ButtonAndError from "../components/ButtonAndError";
 import GoogleSignIn from "../components/GoogleSignIn";
@@ -29,7 +30,7 @@ function LoginPage() {
             errorMsg={errorMsg}
             loading={loading}
           />
-          <ButtonAndError loading={loading} errorMsg={errorMsg} error={error} />
+          <ButtonAndError loading={loading} errorMsg={errorMsg} error={error} loggedIn={loggedIn} />
           <div className="ssoServices">
             <GoogleSignIn setLoggedIn={setLoggedIn} />
             <LinkedInSignIn setLoggedIn={setLoggedIn} />

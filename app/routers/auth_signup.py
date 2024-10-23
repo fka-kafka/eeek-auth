@@ -26,7 +26,6 @@ def signup(user: schemas.UserSignup, db: Session = Depends(get_db)):
 
 @router.post('-sso/{provider}', status_code=status.HTTP_201_CREATED)
 def sso_signup(payload: schemas.PayloadSchema, provider: str, db: Session = Depends(get_db)):
-    print(payload.content)
     try:
         if provider == 'linkedin':
             token_data = get_access_token(payload.content)
@@ -41,5 +40,4 @@ def sso_signup(payload: schemas.PayloadSchema, provider: str, db: Session = Depe
         return created_user
 
     except Exception as e:
-        print(f"Error in signup_sso: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))

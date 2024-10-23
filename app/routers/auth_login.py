@@ -1,8 +1,6 @@
-from fastapi import APIRouter, HTTPException, status, Depends
+from fastapi import APIRouter, HTTPException, Response, status, Depends
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
-from google.oauth2 import id_token
-from google.auth.transport import requests
 
 
 import schemas
@@ -23,30 +21,35 @@ router = APIRouter(
 
 
 @router.post('/', status_code=status.HTTP_200_OK)
-def login(user_credentials: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+def login(response: Response, user_credentials: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     try:
         verified_user = validate_user(user_credentials, db)
         to_authorize = schemas.UserSchema.model_validate(verified_user)
         token = generate_session_token(to_authorize)
 
+        response.set_cookie(
+            key='access_token',
+            value=token,
+            httponly=True,
+            secure=True,
+            samesite='strict',
+            domain='localhost',
+            max_age=86400
+        )
+
         return {
-            "access_token": token,
-            'token_type': "bearer"
+            "status": "login succesful",
         }
     except AttributeError as error:
-        print(error)
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail=f"Please contact support.attr")
     except TypeError as error:
-        print(error)
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail=f"Please contact support.type")
 
 
 @router.post('-sso/{provider}', status_code=status.HTTP_200_OK)
-def sso_login(payload: schemas.PayloadSchema, provider: str, db: Session = Depends(get_db)):
-    user_credentials = id_token.verify_oauth2_token(
-        payload.content, requests.Request(), settings.client_id)
+def sso_login(response: Response, payload: schemas.PayloadSchema, provider: str, db: Session = Depends(get_db)):
     try:
         if provider == 'linkedin':
             token_data = get_access_token(payload.content)
@@ -59,15 +62,22 @@ def sso_login(payload: schemas.PayloadSchema, provider: str, db: Session = Depen
         to_authorize = schemas.UserSchema.model_validate(verified_user)
         token = generate_session_token(to_authorize)
 
+        response.set_cookie(
+            key='access_token',
+            value=token,
+            httponly=True,
+            secure=True,
+            samesite='strict',
+            domain='localhost',
+            max_age=86400
+        )
+
         return {
-            "access_token": token,
-            'token_type': "bearer"
+            "status": "login succesful",
         }
     except AttributeError as error:
-        print(error)
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail=f"Please contact support.attr")
     except TypeError as error:
-        print(error)
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail=f"Please contact support.type")

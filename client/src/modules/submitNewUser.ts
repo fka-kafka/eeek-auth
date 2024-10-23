@@ -1,4 +1,5 @@
 import axios from "axios";
+import { AxiosResponse } from "axios";
 
 interface NewUserType {
   firstname: string;
@@ -9,7 +10,7 @@ interface NewUserType {
 }
 
 const instance = axios.create({
-  baseURL: "http://localhost:8000",
+  baseURL: import.meta.env.VITE_SERVER_URL,
   headers: {
     "Content-Type": "application/json",
   },
@@ -42,15 +43,16 @@ export async function userSSOSignUp(
   }
 }
 
-export async function userLogIn(username: string, password: string) {
+export async function userLogIn(username: string, password: string): Promise<AxiosResponse<any, string>> {
   const formData = new FormData();
   formData.append("username", username);
   formData.append("password", password);
   const thisInstance = axios.create({
-    baseURL: "http://localhost:8000",
+    baseURL: import.meta.env.VITE_SERVER_URL,
     headers: {
       "Content-Type": "multipart/form-data",
     },
+    withCredentials: true
   });
 
   try {
@@ -58,12 +60,12 @@ export async function userLogIn(username: string, password: string) {
     console.log(response);
     return response;
   } catch (errorStack: any) {
-    console.error(errorStack.response);
+    console.error(errorStack);
     return errorStack.response;
   }
 }
 
-export async function userSSOLogIn(payload: string, provider: string) {
+export async function userSSOLogIn(payload: string, provider: string): Promise<AxiosResponse<any, any>> {
   try {
     const response = await instance.post(`/signup-sso/${provider}`, {
       content: payload,

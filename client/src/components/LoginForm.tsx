@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { userLogIn } from "../modules/submitNewUser";
+import { useNavigate } from "react-router-dom";
 import Error from "./ErrorMessage";
 
 const LoginForm = ({
@@ -13,6 +14,7 @@ const LoginForm = ({
 }: any) => {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate()
 
   return (
     <>
@@ -28,7 +30,7 @@ const LoginForm = ({
           if (response.status === 200) {
             setLoggedIn(true);
             setTimeout(() => {
-              window.location.reload();
+              navigate('/home')
             }, 3000);
           } else {
             setError(true);
@@ -49,6 +51,7 @@ const LoginForm = ({
               onChange={(e) => {
                 setCredential(e.target.value);
               }}
+              onInput={() => setError(false)}
               required
             />
           </div>
@@ -67,6 +70,7 @@ const LoginForm = ({
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
+              onInput={() => setError(false)}
               required
             />
           </div>

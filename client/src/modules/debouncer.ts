@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { getUsers } from "./fetchUsers";
 
 const usernameDebouncer = (callback: Function, delay: number) => {

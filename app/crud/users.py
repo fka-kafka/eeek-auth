@@ -18,7 +18,6 @@ def create_user(user: schemas.UserSignup, db: Session):
         db.refresh(new_user)
         return new_user
     except IntegrityError as error:
-        print(error)
         if 'username' in error.args[0]:
             raise HTTPException(status.HTTP_409_CONFLICT, detail=f"A user with the username '{
                                 user.username}' already exists. Please choose a different username.")
@@ -29,7 +28,6 @@ def create_user(user: schemas.UserSignup, db: Session):
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
                                 detail="Please contact support. Details: IntegrityError ")
     except Exception as error:
-        print(error)
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail="Please contact support. Details: Server Error.")
 
@@ -43,7 +41,6 @@ def create_sso_user(user_info: dict[str, Any], db: Session):
         db.refresh(new_sso_user)
         return new_sso_user
     except IntegrityError as error:
-        print(error)
         if 'username' in error.args[0]:
             raise HTTPException(status.HTTP_409_CONFLICT, detail=f"A user with the username '{
                                 user_info.username}' already exists. Please choose a different username.")
@@ -54,6 +51,5 @@ def create_sso_user(user_info: dict[str, Any], db: Session):
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
                                 detail="Please contact support. Details: IntegrityError ")
     except Exception as error:
-        print(error)
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail="Please contact support. Details: Server Error.")

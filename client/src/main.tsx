@@ -7,11 +7,16 @@ import SignupPage from "./routes/SignupPage";
 import ForgotPassword from "./routes/ForgotPassword";
 import OTPVerification from "./components/OTPVerification";
 import ResetPassword from "./components/ResetPassword";
+import Welcome from "./components/Welcome";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <LandingPage />,
+  },
+  {
+    path: "/home",
+    element: <Welcome />,
   },
   {
     path: "/login",

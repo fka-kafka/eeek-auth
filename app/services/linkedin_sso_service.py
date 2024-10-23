@@ -26,14 +26,11 @@ def get_access_token(code: str):
     encoded_params = urlencode(params)
 
     response = requests.post(
-        'https://www.linkedin.com/oauth/v2/accessToken', data=encoded_params, headers=headers)
+        settings.linkedin_access_token_uri, data=encoded_params, headers=headers)
 
     if response.status_code == 200:
-        print(response.json())
         return response.json()
     else:
-        print(f"Error: {response.status_code}")
-        print(response.text)
         return None
 
 
@@ -43,11 +40,9 @@ def create_linkedin_user_model(token_data: dict[str, Any]):
     }
 
     response = requests.get(
-        'https://api.linkedin.com/v2/userinfo', headers=headers)
+        settings.linkedin_user_info_uri, headers=headers)
 
     user_data = response.json()
-
-    print(user_data)
 
     hashed_password = generate_sso_secret()
     new_user = {

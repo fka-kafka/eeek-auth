@@ -27,6 +27,8 @@ class Settings(BaseSettings):
     linkedin_cid: str
     linkedin_secret: str
     linkedin_redirect_uri: str
+    linkedin_access_token_uri: str
+    linkedin_user_info_uri: str
 
     model_config = SettingsConfigDict(env_file='.env')
 

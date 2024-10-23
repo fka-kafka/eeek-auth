@@ -36,11 +36,9 @@ def generate_session_token(user: schemas.UserSchema):
 
         return token
     except FileNotFoundError as error:
-        print(error)
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail="Please contact support.")
     except Exception as error:
-        print(error)
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail="Please contact support.")
 
@@ -56,14 +54,11 @@ def validate_session_token(token: str):
 
         decoded = jwt.decode(token, public_key, algorithms=[
                              settings.auth_algorithm])
-        print(decoded)
         return decoded
     except FileNotFoundError as error:
-        print(error)
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail="Please contact support.")
     except Exception as error:
-        print(error)
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
                             detail="Please contact support.")
 

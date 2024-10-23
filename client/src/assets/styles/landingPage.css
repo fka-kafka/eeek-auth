@@ -36,6 +36,8 @@
   grid-column: 1/2;
   display: flex;
   align-items: center;
+  justify-content: center;
+  max-width: 67%;
 }
 
 .landingPage_title {
@@ -43,14 +45,17 @@
   font-size: 8rem;
   color: var(--COLOR-S);
   text-shadow: 0 4px 4px hsla(0, 0%, 0%, 0.25);
+  text-align: start;
 }
 
 .landingPage_tagLine {
   font-family: var(--FF-S), serif;
+  width: clamp(20vw, 100%, 75ch);
+  text-wrap: wrap;
 }
 
 .landingPage_introduction {
-  margin-left: 16%;
+  padding:10px 0;
 }
 
 .landingPage_tagLine {
@@ -87,15 +92,39 @@
   grid-column: 2 / 3;
   background-image: url("/src/assets/images/WEEE.jpg");
   background-position: center;
-  background-size: cover;
+  /* background-size: cover; */
   mix-blend-mode: hard-light;
   filter: blur(1.5px);
+  
 }
 
-/* .termsAndConditions {
-  max-width: 30vw;
-  text-align: center;
-  font-size: 12px;
-  margin-top: 5px;
-  color: #000;
-} */
+@media (max-width: 720px) {
+  .landingPage_image {
+    display: none;
+  }
+
+  .landingPage_content {
+    background-image: url("/src/assets/images/WEEE.jpg");
+    background-position: center;
+    background-size: cover;
+    /* mix-blend-mode: hard-light; */
+    /* filter: blur(1.5px); */
+  }
+
+  .landingPage_introduction {
+    background-color: hsla(212, 100%, 27%, 0.007);
+    backdrop-filter: blur(4px);
+    box-shadow: 4px 4px 4px -4px black;
+    padding: 1rem;
+    border-radius: 4px;
+  }
+
+  .landingPage_tagLine {
+    font-weight: 800;
+  }
+
+  .landingPage_div {
+    display: flex;
+    justify-content: center;
+  }
+}

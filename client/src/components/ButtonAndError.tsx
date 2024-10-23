@@ -2,7 +2,7 @@ import React from "react";
 import Throbber from "./Throbber";
 import "../assets/styles/submit.css";
 
-const ButtonAndError = ({ loading, signedUp }: any) => {
+const ButtonAndError = ({ loading, signedUp, loggedIn }: any) => {
   let page = window.location.href;
 
   return (
@@ -18,7 +18,7 @@ const ButtonAndError = ({ loading, signedUp }: any) => {
           style={{ display: loading ? "none" : "contents" }}
         >
           {page.includes("login") ? (
-            <button className="loginUser" type="submit" form="loginUserForm">
+            <button className="loginUser" type="submit" form="loginUserForm" disabled={loggedIn ? true : false}>
               Log In
             </button>
           ) : (

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Throbber from "./Throbber";
 import "../assets/styles/resetPassword.css";
 import { resetPassword } from "../modules/forgotPassword";
@@ -7,6 +8,7 @@ const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [resetting, setResetting] = useState(false);
+  const navigate = useNavigate();
 
   const handleReset = async (password: string) => {
     const resetUrl = new URL(window.location.href);
@@ -14,6 +16,11 @@ const ResetPassword = () => {
     let response = await resetPassword(resetUrl, password);
     console.log(response);
     setResetting(false);
+    if (response.status === 201) {
+      setTimeout(() => {
+        navigate("/login");
+      }, 2500);
+    }
   };
 
   return (
@@ -99,8 +106,8 @@ const ResetPassword = () => {
           <p>Give feedback</p>
           <p>&copy; eeek!-inc {new Date().getFullYear()}</p>
           <p>
-            <img src="/src/assets/images/privacy.png" height="10px" alt="" /> Your
-            Privacy Rights
+            <img src="/src/assets/images/privacy.png" height="10px" alt="" />{" "}
+            Your Privacy Rights
           </p>
         </article>
       </footer>

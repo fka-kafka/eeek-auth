@@ -18,15 +18,15 @@ def generate_email_content(data: str, template: str, pin: Optional[str]) -> str:
     try:
 
         env = Environment(
-            loader=PackageLoader('app', 'templates'),
+            loader=PackageLoader('services', 'templates'),
             autoescape=select_autoescape(['html', 'xml'])
         )
-        
+
         template = env.get_template(template)
         context: Dict[str, str] = {'data': data, 'pin': pin}
-        
+
         return template.render(context)
-    
+
     except TemplateNotFound as e:
         raise RuntimeError(f"Template '{template}' not found") from e
     except Exception as e:

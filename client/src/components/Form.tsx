@@ -1,11 +1,11 @@
+import React from "react";
 import { useEffect, useState } from "react";
-import "../form.css";
-import users from "../../MOCK_DATA.json" assert { type: "json" };
+import { useNavigate } from "react-router-dom";
 import { userSignUp } from "../modules/submitNewUser";
 import { NewUserType } from "../modules/submitNewUser";
 import { initUsers } from "../modules/fetchUsers";
 import { debounce } from "../modules/debouncer";
-import React from "react";
+import "../form.css";
 
 const Form = ({ setLoading, setSignedUp, setError, setErrorMsg }: any) => {
   const [firstname, setFirstname] = useState("");
@@ -15,6 +15,7 @@ const Form = ({ setLoading, setSignedUp, setError, setErrorMsg }: any) => {
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [foundUser, setFoundUser] = useState<boolean | null>(null);
+  const navigate = useNavigate()
 
   useEffect(() => {
     initUsers();
@@ -36,17 +37,6 @@ const Form = ({ setLoading, setSignedUp, setError, setErrorMsg }: any) => {
     password,
   };
 
-  let userArray: string[] = [];
-  users.forEach((user) => {
-    userArray.push(user.username);
-    return userArray;
-  });
-
-  // function usernameChecker(username: string) {
-  //   let found = userArray.find((element: string) => element === username);
-  //   return found ? true : false;
-  // }
-
   return (
     <>
       <h1>eeek!</h1>
@@ -62,7 +52,7 @@ const Form = ({ setLoading, setSignedUp, setError, setErrorMsg }: any) => {
           if (response === 201) {
             setSignedUp(true);
             setTimeout(() => {
-              window.location.reload()
+              navigate('/login')
             }, 3000);
           } else {
             setError(true);

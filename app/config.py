@@ -15,7 +15,6 @@ class Settings(BaseSettings):
     secret_key: str
     access_token_expiry_minutes: str
     reset_token_expiry_seconds: str
-    redis_password: str
     redis_host: str
     redis_port: str
     smtp_username: str

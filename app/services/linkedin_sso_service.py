@@ -36,7 +36,7 @@ def get_access_token(code: str):
 
 def create_linkedin_user_model(token_data: dict[str, Any]):
     headers = {
-        'Authorization': f'Bearer {token_data['access_token']}'
+        'Authorization': f"Bearer {token_data['access_token']}"
     }
 
     response = requests.get(

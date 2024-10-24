@@ -17,9 +17,9 @@ settings = get_settings()
 
 app0.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.frontend_url,
+    allow_origins=[settings.frontend_url],
     allow_credentials=False,
-    allow_methods=["POST"],
+    allow_methods=["POST", "GET"],
     allow_headers=["*"],
 )
 

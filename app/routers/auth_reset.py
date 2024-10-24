@@ -30,8 +30,7 @@ def send_otp(payload: schemas.PayloadSchema, db: Session = Depends(get_db)):
 
         store_reset_token(otp, str(found_user.id))
 
-        send_coded_email(otp, 'otp.html', found_user.email, f"{found_user.firstname} {
-            found_user.lastname}")
+        send_coded_email(otp, 'otp.html', found_user.email, f"{found_user.firstname} {found_user.lastname}")
 
         return {'otp_sent': True}
     except Exception as e:

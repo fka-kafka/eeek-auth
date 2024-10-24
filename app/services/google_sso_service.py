@@ -21,7 +21,7 @@ def create_gsi_user_model(user_info: dict[str, Any]):
     new_user = {
         "firstname": user_info["given_name"],
         "lastname": user_info["family_name"],
-        "username": f"{user_info["family_name"].lower()}_{user_info["given_name"].lower()}",
+        "username": f"{user_info['family_name'].lower()}_{user_info['given_name'].lower()}",
         "email": user_info["email"],
         "password": hashed_password,
         "sso_user": True

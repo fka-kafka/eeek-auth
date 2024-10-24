@@ -41,11 +41,9 @@ def login(response: Response, user_credentials: OAuth2PasswordRequestForm = Depe
             "status": "login succesful",
         }
     except AttributeError as error:
-        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail=f"Please contact support.attr")
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Please contact support.attr")
     except TypeError as error:
-        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail=f"Please contact support.type")
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Please contact support.type")
 
 
 @router.post('-sso/{provider}', status_code=status.HTTP_200_OK)
@@ -76,8 +74,6 @@ def sso_login(response: Response, payload: schemas.PayloadSchema, provider: str,
             "status": "login succesful",
         }
     except AttributeError as error:
-        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail=f"Please contact support.attr")
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Please contact support.attr")
     except TypeError as error:
-        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail=f"Please contact support.type")
+        raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Please contact support.type")

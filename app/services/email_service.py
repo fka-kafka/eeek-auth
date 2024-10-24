@@ -40,5 +40,4 @@ def send_coded_email(code: str, template: str, to_email: str, pin: Optional[str]
     except SMTPException as e:
         raise RuntimeError(f"Failed to send OTP email: {str(e)}") from e
     except Exception as e:
-        raise RuntimeError(
-            f"Unexpected error in sending OTP email: {str(e)}") from e
+        raise RuntimeError(f"Unexpected error in sending OTP email: {str(e)}") from e

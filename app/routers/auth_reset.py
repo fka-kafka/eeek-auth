@@ -23,8 +23,7 @@ def send_otp(payload: schemas.PayloadSchema, db: Session = Depends(get_db)):
         email=payload.content).first()
 
     if found_user == None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
-                            detail=f"The email account provided is not associated with any user account.")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f"The email account provided is not associated with any user account.")
 
     try:
         otp = generate_otp()
@@ -36,8 +35,7 @@ def send_otp(payload: schemas.PayloadSchema, db: Session = Depends(get_db)):
 
         return {'otp_sent': True}
     except Exception as e:
-        raise RuntimeError(
-            f"Unexpected error in sending OTP email: {str(e)}") from e
+        raise RuntimeError(f"Unexpected error in sending OTP email: {str(e)}") from e
 
 
 @router.post('/verify-reset', status_code=status.HTTP_200_OK)
@@ -47,8 +45,7 @@ def verify_reset(payload: schemas.PayloadSchema, connections: tuple = Depends(ge
     #                         detail=f"Invalid payload data")
 
     if not verify_otp(str(payload.content)):
-        raise HTTPException(status.HTTP_406_NOT_ACCEPTABLE,
-                            detail=f"Invalid OTP.")
+        raise HTTPException(status.HTTP_406_NOT_ACCEPTABLE, detail=f"Invalid OTP.")
 
     token, token_data = generate_token_data()
 
@@ -60,8 +57,7 @@ def verify_reset(payload: schemas.PayloadSchema, connections: tuple = Depends(ge
 
     store_reset_token(str(payload.content), str(user_to_reset.id), token_data)
 
-    send_coded_email(token, 'reset.html', user_to_reset.email, str(payload.content)[::-1], f"{user_to_reset.firstname} {
-        user_to_reset.lastname}")
+    send_coded_email(token, 'reset.html', user_to_reset.email, str(payload.content)[::-1], f"{user_to_reset.firstname} {user_to_reset.lastname}")
 
     return redis_db.hgetall(str(payload.content))
 
@@ -71,12 +67,10 @@ def approve_reset_password(token: str, reset_pin: str):
     stored_token_data = get_reset_token(reset_pin[::-1])
 
     if stored_token_data == None:
-        raise HTTPException(status.HTTP_406_NOT_ACCEPTABLE,
-                            detail=f"Invalid reset link.")
+        raise HTTPException(status.HTTP_406_NOT_ACCEPTABLE,detail=f"Invalid reset link.")
 
     if not validate_reset_token(token, stored_token_data):
-        raise HTTPException(status.HTTP_406_NOT_ACCEPTABLE,
-                            detail=f"Invalid reset link.")
+        raise HTTPException(status.HTTP_406_NOT_ACCEPTABLE,detail=f"Invalid reset link.")
 
     return {'allowed': True}
 
@@ -87,30 +81,25 @@ def reset_password(token: str, reset_pin: str, payload: schemas.PayloadSchema, c
     stored_token_data = get_reset_token(reset_pin[::-1])
 
     if payload is None:
-        raise HTTPException(status.HTTP_404_NOT_FOUND,
-                            detail=f"An error occured while trying to reset your password.")
+        raise HTTPException(status.HTTP_404_NOT_FOUND,detail=f"An error occured while trying to reset your password.")
 
     if stored_token_data == None:
-        raise HTTPException(status.HTTP_404_NOT_FOUND,
-                            detail=f"Invalid reset link.")
+        raise HTTPException(status.HTTP_404_NOT_FOUND,detail=f"Invalid reset link.")
 
     if not validate_reset_token(token, stored_token_data):
-        raise HTTPException(status.HTTP_404_NOT_FOUND,
-                            detail=f"Invalid reset link.")
+        raise HTTPException(status.HTTP_404_NOT_FOUND,detail=f"Invalid reset link.")
 
     user_id = redis_db.hget(reset_pin[::-1], 'sub')
 
     if not user_id:
-        raise HTTPException(status.HTTP_404_NOT_FOUND,
-                            detail=f"An error occured while trying to reset your password.")
+        raise HTTPException(status.HTTP_404_NOT_FOUND,detail=f"An error occured while trying to reset your password.")
 
     new_password = hash_passwd(payload.content)
 
     query = db.query(models.User).filter_by(id=user_id)
     user = query.first()
     if user == None:
-        raise HTTPException(status.HTTP_404_NOT_FOUND,
-                            detail=f"An error occured while trying to reset your password.")
+        raise HTTPException(status.HTTP_404_NOT_FOUND,detail=f"An error occured while trying to reset your password.")
 
     query.update({models.User.password: new_password},
                  synchronize_session=False)

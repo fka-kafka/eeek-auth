@@ -34,8 +34,7 @@ def store_reset_token(key: str, sub: str = '', mapping: dict[str, Any] = {}) -> 
         return new_token
     except redis.RedisError as e:
         # Raise the original Redis exception with a custom message for more context
-        raise redis.RedisError(
-            f"Failed to add reset token for key '{key}': {e}")
+        raise redis.RedisError(f"Failed to add reset token for key '{key}': {e}")
 
 
 def get_reset_token(key: str) -> Optional[str]:
@@ -59,5 +58,4 @@ def get_reset_token(key: str) -> Optional[str]:
         return saved_token
     except redis.RedisError as e:
         # Raise the original Redis exception with a custom message for more context
-        raise redis.RedisError(
-            f"Failed to retrieve reset token for key '{key}': {e}")
+        raise redis.RedisError(f"Failed to retrieve reset token for key '{key}': {e}")

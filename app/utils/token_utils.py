@@ -23,8 +23,7 @@ def generate_token_data():
     try:
         return token, token_data
     except Exception as e:
-        raise RuntimeError(
-            f"Unexpected error while generating reset token.") from e
+        raise RuntimeError(f"Unexpected error while generating reset token.") from e
 
 
 def validate_reset_token(token: str, token_data: dict[str, str]):

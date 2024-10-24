@@ -19,11 +19,9 @@ def create_user(user: schemas.UserSignup, db: Session):
         return new_user
     except IntegrityError as error:
         if 'username' in error.args[0]:
-            raise HTTPException(status.HTTP_409_CONFLICT, detail=f"A user with the username '{
-                                user.username}' already exists. Please choose a different username.")
+            raise HTTPException(status.HTTP_409_CONFLICT, detail=f"A user with the username '{user.username}' already exists. Please choose a different username.")
         elif 'email' in error.args[0]:
-            raise HTTPException(status.HTTP_409_CONFLICT, detail=f"The email '{
-                                user.email}' is already registered.")
+            raise HTTPException(status.HTTP_409_CONFLICT, detail=f"The email '{user.email}' is already registered.")
         else:
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
                                 detail="Please contact support. Details: IntegrityError ")
@@ -42,11 +40,9 @@ def create_sso_user(user_info: dict[str, Any], db: Session):
         return new_sso_user
     except IntegrityError as error:
         if 'username' in error.args[0]:
-            raise HTTPException(status.HTTP_409_CONFLICT, detail=f"A user with the username '{
-                                user_info.username}' already exists. Please choose a different username.")
+            raise HTTPException(status.HTTP_409_CONFLICT, detail=f"A user with the username '{user_info.username}' already exists. Please choose a different username.")
         elif 'email' in error.args[0]:
-            raise HTTPException(status.HTTP_409_CONFLICT, detail=f"The email '{
-                                user_info.email}' is already registered.")
+            raise HTTPException(status.HTTP_409_CONFLICT, detail=f"The email '{user_info.email}' is already registered.")
         else:
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
                                 detail="Please contact support. Details: IntegrityError ")

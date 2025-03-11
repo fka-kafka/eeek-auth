@@ -34,10 +34,12 @@ def sso_signup(payload: schemas.PayloadSchema, provider: str, db: Session = Depe
             user_data = get_user_info(payload.content)
             user_info = create_gsi_user_model(user_data)
 
+        print('user_info:', user_info)
         new_sso_user = create_sso_user(user_info, db)
         created_user = schemas.UserCreated(
             id=new_sso_user.id, username=new_sso_user.username, date_created=new_sso_user.date_created, sso_user=new_sso_user.sso_user)
+        print(created_user)
         return created_user
 
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    except Exception as error:
+        raise HTTPException(status_code=500, detail=f"Please contact support. {str(error)}")

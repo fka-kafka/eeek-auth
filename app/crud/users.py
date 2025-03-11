@@ -48,4 +48,4 @@ def create_sso_user(user_info: dict[str, Any], db: Session):
                                 detail="Please contact support. Details: IntegrityError ")
     except Exception as error:
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail="Please contact support. Details: Server Error.")
+                            detail=f"Please contact support. Details: {error}.")

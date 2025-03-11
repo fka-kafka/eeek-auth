@@ -1,6 +1,8 @@
 from typing import Dict, Optional
 from jinja2 import Environment, PackageLoader, TemplateNotFound, select_autoescape
+from config import get_settings
 
+settings = get_settings()
 
 def generate_email_content(data: str, template: str, pin: Optional[str]) -> str:
     """
@@ -23,7 +25,7 @@ def generate_email_content(data: str, template: str, pin: Optional[str]) -> str:
         )
 
         template = env.get_template(template)
-        context: Dict[str, str] = {'data': data, 'pin': pin}
+        context: Dict[str, str | None] = {'data': data, 'pin': pin, 'environment': settings.environment}
 
         return template.render(context)
 

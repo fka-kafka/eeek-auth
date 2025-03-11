@@ -11,7 +11,7 @@ def hash_passwd(passwd: str):
         return hashed_passwd
     except TypeError as error:
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail="Please contact support. Details: Server Error.")
+                            detail="Please contact support. Details: Server hashing Error.")
 
 
 def validate_passwd(passwd: str, hashed_passwd: bytes):
@@ -20,7 +20,7 @@ def validate_passwd(passwd: str, hashed_passwd: bytes):
         return verified_passwd
     except TypeError as error:
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail="Please contact support. Details: Server Error.")
+                            detail="Please contact support. Details: Server validating password Error.")
 
 
 def generate_token_hash(token: str):

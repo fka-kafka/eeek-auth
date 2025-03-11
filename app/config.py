@@ -1,8 +1,8 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from functools import lru_cache
 
-
 class Settings(BaseSettings):
+    environment: str
     db_name: str
     db_username: str
     db_password: str
@@ -17,6 +17,7 @@ class Settings(BaseSettings):
     reset_token_expiry_seconds: str
     redis_host: str
     redis_port: str
+    redis_password: str
     smtp_username: str
     smtp_password: str
     smtp_server: str

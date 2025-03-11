@@ -15,7 +15,7 @@ settings = get_settings()
 def generate_session_token(user: schemas.UserSchema):
     if not user:
         raise HTTPException(status.HTTP_400_BAD_REQUEST,
-                            detail="Please contact support.")
+                            detail="Please contact support. User not found")
 
     try:
         with open(f'{settings.priv_key_path}', 'rb') as key_file:
@@ -37,10 +37,10 @@ def generate_session_token(user: schemas.UserSchema):
         return token
     except FileNotFoundError as error:
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail="Please contact support.")
+                            detail=f"Please contact support. {error}")
     except Exception as error:
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail="Please contact support.")
+                            detail=f"Please contact support. {error}")
 
 
 def validate_session_token(token: str):
@@ -57,9 +57,7 @@ def validate_session_token(token: str):
         return decoded
     except FileNotFoundError as error:
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail="Please contact support.")
+                            detail=f"Please contact support. {error}")
     except Exception as error:
         raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR,
-                            detail="Please contact support.")
-
-
+                            detail=f"Please contact support. {error}")

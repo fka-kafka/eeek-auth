@@ -11,7 +11,11 @@
     </h1>
     <p> The reset link:</p>
     <br>
+    {% if environment == "production" %}
     <p>https:eeek-auth.onrender.com/forgot-password/reset/{{ pin }}/?token={{ data }}</p>
+    {% else %}
+    <p>http://localhost:5173/forgot-password/reset/{{ pin }}/?token={{ data }}</p>
+    {% endif %}
     <br>
     <p>will expire in 15 minutes.</p>
 </body>

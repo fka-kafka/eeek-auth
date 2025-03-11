@@ -14,7 +14,7 @@ const ForgotPassword = () => {
   const handleOTPRequest = async (email: string) => {
     setSentOTP(true);
     setLoading(true)
-    console.log(email);
+
     let response = await sendOTP(email);
     setLoading(false)
     console.log(response);

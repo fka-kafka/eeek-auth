@@ -5,9 +5,9 @@ import ln from '../assets/LI-In-Bug.png'
 
 const LinkedInSignIn = ({ setSignedUp }: any) => {
   const linkedInLogin = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${
-    import.meta.env.VITE_LINKEIN_CLIENT_ID
+    import.meta.env.VITE_LINKEDIN_CLIENT_ID
   }&redirect_uri=${encodeURIComponent(
-    import.meta.env.VITE_LINKEIN_REDIRECT_URI
+    import.meta.env.VITE_LINKEDIN_REDIRECT_URI
   )}&scope=profile%20email%20openid`;
 
   const handleLinkedInCallback = async () => {
@@ -30,7 +30,7 @@ const LinkedInSignIn = ({ setSignedUp }: any) => {
   return (
     <>
       <a href={linkedInLogin}>
-        <img src={ln} height={40} alt="" />
+        <img src={ln} height={40} alt="Continue with LinkedIn" title="Continue with LinkedIn" />
       </a>
     </>
   );

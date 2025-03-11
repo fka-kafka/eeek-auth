@@ -12,6 +12,7 @@ const ResetPassword = () => {
 
   const handleReset = async (password: string) => {
     const resetUrl = new URL(window.location.href);
+
     setResetting(true);
     let response = await resetPassword(resetUrl, password);
     console.log(response);

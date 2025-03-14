@@ -1,6 +1,15 @@
 import React from "react";
+import { useEffect } from "react";
 
 const Welcome = () => {
+    useEffect(() => {
+      if (window.location.href.includes('code')) {
+          window.location.href = window.location.origin + window.location.pathname
+      }
+
+      return
+    }, [])    
+
   return (
     <main
       style={{

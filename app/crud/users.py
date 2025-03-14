@@ -30,9 +30,10 @@ def create_user(user: schemas.UserSignup, db: Session):
                             detail="Please contact support. Details: Server Error.")
 
 
-def create_sso_user(user_info: dict[str, Any], db: Session):
+def create_sso_user(user_info_dict: dict, db: Session):
     try:
-        new_sso_user = models.User(**user_info)
+        user_info = schemas.UserSignup(**user_info_dict)
+        new_sso_user = models.User(**user_info.dict())
 
         db.add(new_sso_user)
         db.commit()

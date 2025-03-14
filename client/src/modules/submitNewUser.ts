@@ -19,8 +19,6 @@ const instance = axios.create({
 export async function userSignUp(user: NewUserType) {
   try {
     const response = await instance.post("/signup/", user);
-    console.log(response);
-    return response.status;
   } catch (errorStack: any) {
     console.error(errorStack.response);
     return errorStack.response;
@@ -35,7 +33,6 @@ export async function userSSOSignUp(
     const response = await instance.post(`/signup-sso/${provider}`, {
       content: payload,
     });
-    console.log(response);
     return response.status;
   } catch (errorStack: any) {
     console.error(errorStack.response);
@@ -57,7 +54,6 @@ export async function userLogIn(username: string, password: string): Promise<Axi
 
   try {
     const response = await thisInstance.post("/login/", formData);
-    console.log(response);
     return response;
   } catch (errorStack: any) {
     console.error(errorStack);
@@ -70,8 +66,7 @@ export async function userSSOLogIn(payload: string, provider: string): Promise<A
     const response = await instance.post(`/login-sso/${provider}`, {
       content: payload,
     });
-    console.log(response);
-    return response.data;
+    return response.status;
   } catch (errorStack: any) {
     console.error(errorStack.response);
     return errorStack.response;

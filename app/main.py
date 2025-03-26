@@ -12,7 +12,7 @@ models.Base.metadata.create_all(bind=engine)
 settings = get_settings()
 
 app = FastAPI(
-    title='EEEK-Auth'
+    title='EEEK'
 )
 
 app.add_middleware(

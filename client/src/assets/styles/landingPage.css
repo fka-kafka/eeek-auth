@@ -29,7 +29,7 @@
   background-color: var(--COLOR-T);
   height: 100vh;
   display: grid;
-  grid-template-columns: 2fr, 1fr;
+  grid-template-columns: 2fr 1fr;
 }
 
 .landingPage_content {
@@ -37,7 +37,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  max-width: 67%;
+  min-width: 100%;
 }
 
 .landingPage_title {
@@ -55,7 +55,7 @@
 }
 
 .landingPage_introduction {
-  padding:10px 0;
+  max-width: 50%;
 }
 
 .landingPage_tagLine {

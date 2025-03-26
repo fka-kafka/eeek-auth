@@ -12,7 +12,7 @@ const LandingPage = () => {
               Old TVs? obsolete equipment? — we re-purpose
               your 'junk' from being yet <b>another</b> reason a
               turtle
-              chokes to death in its natural habbitat.
+              chokes to death in <b>its</b> natural habbitat.
             </p>
           </article>
           <div className="landingPage_div">

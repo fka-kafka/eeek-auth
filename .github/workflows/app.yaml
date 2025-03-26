@@ -1,26 +1,28 @@
 name: 'Deploy backend code to Render.com'
 
 on:
-    push:
-        branches: [main]
-        paths:
-            -"app/**"
-    
-    pull_request:
-        branches: [main]
-        paths:
-            -"app/**"
+  push:
+    branches: 
+      - main
+    paths:
+      - 'app/**'
+  
+  pull_request:
+    branches: 
+      - main
+    paths:
+      - 'app/**'
 
 jobs:
-    deploy:
-        runs-on: ubuntu-latest
-        
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-            - name: Deploy to Render
-              env:
-                  deploy_url: ${{ secrets.RENDER_BACKEND_DEPLOY_HOOK_URL }}
-              run: |
-                curl "$deploy_url"
+      - name: Deploy to Render
+        env:
+          deploy_url: ${{ secrets.RENDER_BACKEND_DEPLOY_HOOK_URL }}
+        run: |
+          curl "$deploy_url"

@@ -61,7 +61,7 @@ export async function userLogIn(username: string, password: string): Promise<Axi
   }
 }
 
-export async function userSSOLogIn(payload: string, provider: string): Promise<AxiosResponse<any, number>> {
+export async function userSSOLogIn(payload: string, provider: string): number {
   try {
     const response = await instance.post(`/login-sso/${provider}`, {
       content: payload,

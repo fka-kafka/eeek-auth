@@ -1,12 +1,26 @@
-name: 'Server CI/CD Workflow'
+name: 'Deploy backend code to Render.com'
 
 on:
     push:
-        branches:
-            -main
+        branches: [main]
+        paths:
+            -"app/**"
     
     pull_request:
-        branches:
-            -main
+        branches: [main]
+        paths:
+            -"app/**"
 
-jobs: 
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Deploy to Render
+              env:
+                  deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+              run: |
+                curl "$deploy_url"

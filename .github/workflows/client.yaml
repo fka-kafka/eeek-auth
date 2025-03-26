@@ -1,1 +1,26 @@
-t
+name: 'Deploy frontend code to Render.com'
+
+on:
+    push:
+        branches: [main]
+        paths:
+            -"client/**"
+    
+    pull_request:
+        branches: [main]
+        paths:
+            -"client/**"
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Deploy to Render
+              env:
+                  deploy_url: ${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK_URL }}
+              run: |
+                curl "$deploy_url"

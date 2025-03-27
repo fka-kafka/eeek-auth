@@ -10,4 +10,3 @@ users.forEach((userObject) => {
 
 
 
-export default userArray

@@ -23,20 +23,11 @@ jobs:
 
       - name: Deploy to Render
         env:
-          deploy_url: ${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK_URL }}
+          SERVICE_ID: ${{ secrets.RENDER_FRONTEND_SERVICE_ID }}
+          SERVICE_KEY: ${{ secrets.RENDER_FRONTEND_SERVICE_KEY }}
         run: |
-          set -x  # Enable verbose output
-          echo "Deploying frontend..."
+          DEPLOY_URL="https://api.render.com/deploy/${SERVICE_ID}?key=${SERVICE_KEY}"
           
-          # Print the raw URL
-          echo "Raw URL: $deploy_url"
-          echo "URL length: ${#deploy_url}"
+          echo "Deploying frontend service ID: ${SERVICE_ID}"
           
-          # Trim whitespace and use printf to reveal potential hidden characters
-          trimmed_url=$(printf '%s' "$deploy_url" | xargs)
-          
-          echo "Trimmed URL: $trimmed_url"
-          echo "Trimmed URL length: ${#trimmed_url}"
-          
-          # Use verbose curl to see exact details
-          curl -v -L "$trimmed_url"
+          curl -X POST "$DEPLOY_URL"

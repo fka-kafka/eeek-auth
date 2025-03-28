@@ -23,6 +23,11 @@ jobs:
 
       - name: Deploy to Render
         env:
-          deploy_url: ${{ secrets.RENDER_BACKEND_DEPLOY_HOOK_URL }}
+          SERVICE_ID: ${{ secrets.RENDER_BACKEND_SERVICE_ID }}
+          SERVICE_KEY: ${{ secrets.RENDER_BACKEND_SERVICE_KEY }}
         run: |
-          curl "$deploy_url"
+          DEPLOY_URL="https://api.render.com/deploy/${SERVICE_ID}?key=${SERVICE_KEY}"
+          
+          echo "Deploying backend service ID: ${SERVICE_ID}"
+          
+          curl -X POST "$DEPLOY_URL"
